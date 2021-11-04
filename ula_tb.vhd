@@ -10,23 +10,15 @@ architecture a_ula_tb of ula_tb is
         port(
             in_x, in_y : IN  unsigned(15 downto 0);
             in_sel     : IN  unsigned(1  downto 0);
-            saida      : OUT unsigned(15 downto 0);
-            out_zero   : OUT STD_LOGIC
+            saida      : OUT unsigned(15 downto 0)
         );
     end component;
     
     signal in_x, in_y, saida : unsigned(15 downto 0);
     signal in_sel            : unsigned(1  downto 0);
-    signal out_zero          : STD_LOGIC;
 begin
 
-    uut: ula port map(
-        in_x     => in_x,
-        in_y     => in_y,
-        in_sel   => in_sel,
-        saida    => saida,
-        out_zero => out_zero
-    );
+    uut: ula port map(in_x,in_y,in_sel,saida);
     
     process
     begin
