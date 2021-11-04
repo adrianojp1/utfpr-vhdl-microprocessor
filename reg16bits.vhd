@@ -2,26 +2,26 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity registrador is
-    port(   
+entity reg16bits is
+    port(
         clk         :   in std_logic;
         rst         :   in std_logic;
         wr_en       :   in std_logic;
         data_in     :   in  unsigned(15 downto 0);
         data_out    :   out unsigned(15 downto 0)
     );
-end entity registrador;
+end entity reg16bits;
 
 
-architecture a_registrador of registrador is 
+architecture a_reg16bits of reg16bits is
     signal registro     :   unsigned(15 downto 0);
-begin 
+begin
     process(clk,rst,wr_en)
-    begin 
-        if rst='1' then 
+    begin
+        if rst='1' then
             registro <= "0000000000000000"; --reset
         elsif wr_en='1' then
-            if rising_edge(clk) then 
+            if rising_edge(clk) then
                 registro <= data_in; --set
             end if;
         end if;

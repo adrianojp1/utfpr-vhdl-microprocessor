@@ -2,11 +2,11 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity registrador_tb is
+entity reg16bits_tb is
 end entity;
 
-architecture a_registrador_tb of registrador_tb is 
-    component registrador is
+architecture a_reg16bits_tb of reg16bits_tb is
+    component reg16bits is
         port(
             clk             :   in std_logic;
             rst             :   in std_logic;
@@ -20,8 +20,8 @@ architecture a_registrador_tb of registrador_tb is
     signal finished         :   std_logic := '0';
     signal clk, rst, wr_en  :   std_logic;
     signal data_in,data_out :   unsigned(15 downto 0);
-begin 
-    uut: registrador port map(
+begin
+    uut: reg16bits port map(
         clk         =>  clk,
         rst         =>  rst,
         wr_en       =>  wr_en,
@@ -34,11 +34,11 @@ begin
         rst <= '1';
         wait  for period_time*2;
         rst <= '0';
-        wait;    
+        wait;
     end process reset_global;
     
     clk_proc: process
-    begin 
+    begin
         while finished /= '1' loop
             clk <= '0';
             wait for period_time/2;
@@ -47,16 +47,16 @@ begin
         end loop;
         wait;
     end process clk_proc;
-        
+    
     sim_time_proc: process
-    begin 
+    begin
         wait for 10 us;
         finished <= '1';
         wait;
     end process sim_time_proc;
 
     process
-    begin 
+    begin
         wait for 200 ns;
         wr_en <= '0';
         data_in <= "0000000000000000";
