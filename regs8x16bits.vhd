@@ -42,10 +42,37 @@ begin
         clk => clk, rst => rst, wr_en => wr_en_2,
         data_in => bank_in, data_out => data_2
     );
+    reg3: reg16bits port map(
+        clk => clk, rst => rst, wr_en => wr_en_3,
+        data_in => bank_in, data_out => data_3
+    );
+    reg4: reg16bits port map(
+        clk => clk, rst => rst, wr_en => wr_en_4,
+        data_in => bank_in, data_out => data_4
+    );
+    reg5: reg16bits port map(
+        clk => clk, rst => rst, wr_en => wr_en_5,
+        data_in => bank_in, data_out => data_5
+    );
+    reg6: reg16bits port map(
+        clk => clk, rst => rst, wr_en => wr_en_6,
+        data_in => bank_in, data_out => data_6
+    );
+    reg7: reg16bits port map(
+        clk => clk, rst => rst, wr_en => wr_en_7,
+        data_in => bank_in, data_out => data_7
+    );
     
     in_selection: process(sel_in, wr_en)
     begin
-        wr_en_1 <= wr_en_2 <= wr_en_3 <= wr_en_4 <= wr_en_5 <= wr_en_6 <= wr_en_7 <= '0';
+        wr_en_1 <= '0';
+        wr_en_2 <= '0';
+        wr_en_3 <= '0';
+        wr_en_4 <= '0';
+        wr_en_5 <= '0';
+        wr_en_6 <= '0';
+        wr_en_7 <= '0';
+        
         if wr_en='1' then
             if sel_in="001" then
                 wr_en_1 <= '1';
