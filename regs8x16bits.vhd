@@ -7,8 +7,8 @@ entity regs8x16bits is
         clk                    : in  STD_LOGIC;
         rst                    : in  STD_LOGIC;
         wr_en                  : in  STD_LOGIC;
-        sel_in                 : in  unsigned(3 downto 0);
-        sel_out_1, sel_out_2   : in  unsigned(3 downto 0);
+        sel_in                 : in  unsigned(2 downto 0);
+        sel_out_1, sel_out_2   : in  unsigned(2 downto 0);
         bank_in                : in  unsigned(15 downto 0);
         bank_out_1, bank_out_2 : out unsigned(15 downto 0)
     );
@@ -28,7 +28,6 @@ architecture a_regs8x16bits of regs8x16bits is
     
     signal data_0, data_1, data_2, data_3, data_4, data_5, data_6, data_7: unsigned(15 downto 0);
     signal wr_en_1, wr_en_2, wr_en_3, wr_en_4, wr_en_5, wr_en_6, wr_en_7: STD_LOGIC;
-    signal out_1, out_2: unsigned(15 downto 0);
 begin
 
     reg0: reg16bits port map(
@@ -66,49 +65,26 @@ begin
         end if;
     end process in_selection;
     
-    out_1_selection: process(sel_out_1)
-    begin
-        if sel_out_1="000" then
-            out_1 <= data_0;
-        elsif sel_out_1="001" then
-            out_1 <= data_1;
-        elsif sel_out_1="010" then
-            out_1 <= data_2;
-        elsif sel_out_1="011" then
-            out_1 <= data_3;
-        elsif sel_out_1="100" then
-            out_1 <= data_4;
-        elsif sel_out_1="101" then
-            out_1 <= data_5;
-        elsif sel_out_1="110" then
-            out_1 <= data_6;
-        elsif sel_out_1="111" then
-            out_1 <= data_7;
-        end if;
-    end process out_1_selection;
+    bank_out_1 <=
+    data_0 when sel_out_1="000" else
+    data_1 when sel_out_1="001" else
+    data_2 when sel_out_1="010" else
+    data_3 when sel_out_1="011" else
+    data_4 when sel_out_1="100" else
+    data_5 when sel_out_1="101" else
+    data_6 when sel_out_1="110" else
+    data_7 when sel_out_1="111" else
+    "0000000000000000";
     
-    out_2_selection: process(sel_out_2)
-    begin
-        if sel_out_2="000" then
-            out_2 <= data_0;
-        elsif sel_out_2="001" then
-            out_2 <= data_1;
-        elsif sel_out_2="010" then
-            out_2 <= data_2;
-        elsif sel_out_2="011" then
-            out_2 <= data_3;
-        elsif sel_out_2="100" then
-            out_2 <= data_4;
-        elsif sel_out_2="101" then
-            out_2 <= data_5;
-        elsif sel_out_2="110" then
-            out_2 <= data_6;
-        elsif sel_out_2="111" then
-            out_2 <= data_7;
-        end if;
-    end process out_2_selection;
-    
-    bank_out_1 <= out_1;
-    bank_out_2 <= out_2;
+    bank_out_2 <=
+    data_0 when sel_out_2="000" else
+    data_1 when sel_out_2="001" else
+    data_2 when sel_out_2="010" else
+    data_3 when sel_out_2="011" else
+    data_4 when sel_out_2="100" else
+    data_5 when sel_out_2="101" else
+    data_6 when sel_out_2="110" else
+    data_7 when sel_out_2="111" else
+    "0000000000000000";
 
 end architecture a_regs8x16bits;
