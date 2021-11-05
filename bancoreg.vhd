@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity regs8x16bits is
+entity bancoreg is
     port(
         clk                    : in  STD_LOGIC;
         rst                    : in  STD_LOGIC;
@@ -12,9 +12,9 @@ entity regs8x16bits is
         bank_in                : in  unsigned(15 downto 0);
         bank_out_1, bank_out_2 : out unsigned(15 downto 0)
     );
-end entity regs8x16bits;
+end entity bancoreg;
 
-architecture a_regs8x16bits of regs8x16bits is
+architecture a_bancoreg of bancoreg is
     component reg16bits is
         port
         (
@@ -114,4 +114,4 @@ begin
     data_7 when sel_out_2="111" else
     "0000000000000000";
 
-end architecture a_regs8x16bits;
+end architecture a_bancoreg;

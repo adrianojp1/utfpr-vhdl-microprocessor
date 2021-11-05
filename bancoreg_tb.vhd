@@ -2,11 +2,11 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity regs8x16bits_tb is
-end entity regs8x16bits_tb;
+entity bancoreg_tb is
+end entity bancoreg_tb;
 
-architecture a_regs8x16bits_tb of regs8x16bits_tb is
-    component regs8x16bits is
+architecture a_bancoreg_tb of bancoreg_tb is
+    component bancoreg is
         port
         (
             clk        : IN STD_LOGIC ;
@@ -28,7 +28,7 @@ architecture a_regs8x16bits_tb of regs8x16bits_tb is
     signal   data_in, data_out_1, data_out_2 : unsigned(15 downto 0);
 begin
 
-    uut: regs8x16bits port map(
+    uut: bancoreg port map(
         clk => clk, rst => reset, wr_en => wr_en,
         sel_in => sel_in,
         bank_in => data_in,
@@ -84,4 +84,4 @@ begin
         wait;
     end process;
 
-end architecture a_regs8x16bits_tb;
+end architecture a_bancoreg_tb;
