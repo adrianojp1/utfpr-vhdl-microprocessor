@@ -4,8 +4,11 @@ use ieee.numeric_std.all;
 
 entity processador is 
     port(
-        clk :   in  std_logic;
-        rst :   in  std_logic
+        clk     : in  std_logic;
+        rst     : in  std_logic;
+        wr_en   : in  STD_LOGIC;
+        cte_in  : in  unsigned(15 downto 0);
+        ula_out : out unsigned(15 downto 0)
     );
 end entity;
 
@@ -55,6 +58,7 @@ begin
         bank_out_1  => read_data_a,
         bank_out_2  => read_data_b
     );
+    
     ula0: ula port map(
         in_x    => read_data_a,
         in_y    => ula_y,
