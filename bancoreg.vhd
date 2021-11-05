@@ -63,35 +63,14 @@ begin
         data_in => bank_in, data_out => data_7
     );
     
-    in_selection: process(sel_in, wr_en)
-    begin
-        wr_en_1 <= '0';
-        wr_en_2 <= '0';
-        wr_en_3 <= '0';
-        wr_en_4 <= '0';
-        wr_en_5 <= '0';
-        wr_en_6 <= '0';
-        wr_en_7 <= '0';
-        
-        if wr_en='1' then
-            if sel_in="001" then
-                wr_en_1 <= '1';
-            elsif sel_in="010" then
-                wr_en_2 <= '1';
-            elsif sel_in="011" then
-                wr_en_3 <= '1';
-            elsif sel_in="100" then
-                wr_en_4 <= '1';
-            elsif sel_in="101" then
-                wr_en_5 <= '1';
-            elsif sel_in="110" then
-                wr_en_6 <= '1';
-            elsif sel_in="111" then
-                wr_en_7 <= '1';
-            end if;
-        end if;
-    end process in_selection;
-    
+    wr_en_1 <= wr_en when sel_in = "001" else '0';
+    wr_en_2 <= wr_en when sel_in = "010" else '0';
+    wr_en_3 <= wr_en when sel_in = "011" else '0';
+    wr_en_4 <= wr_en when sel_in = "100" else '0';
+    wr_en_5 <= wr_en when sel_in = "101" else '0';
+    wr_en_6 <= wr_en when sel_in = "110" else '0';
+    wr_en_7 <= wr_en when sel_in = "111" else '0';
+
     bank_out_1 <=
     data_0 when sel_out_1="000" else
     data_1 when sel_out_1="001" else
