@@ -1,4 +1,0 @@
-v 4
-file . "bancoreg.vhd" "6e896515633d4cfbe41f5d39d3cf7e0aae599c6e" "20211105025933.669":
-  entity bancoreg at 1( 0) + 0 on 11;
-  architecture a_bancoreg of bancoreg at 17( 509) + 0 on 12;
