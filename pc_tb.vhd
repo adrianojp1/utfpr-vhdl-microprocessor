@@ -12,8 +12,8 @@ architecture a_pc_tb of pc_tb is
             clk     :   in  std_logic;
             rst     :   in  std_logic;
             wr_en   :   in  std_logic;
-            data_in :   in  unsigned(7 downto 0);
-            data_out:   out unsigned(7 downto 0)
+            data_i  :   in  unsigned(7 downto 0);
+            data_o  :   out unsigned(7 downto 0)
         );
     end component pc;
 
@@ -24,18 +24,17 @@ architecture a_pc_tb of pc_tb is
     signal  clk         :   std_logic;
     signal  rst         :   std_logic;
     signal  wr_en       :   std_logic;
-    signal  data_in     :   unsigned(7 downto 0);
-    signal  data_out    :   unsigned(7 downto 0);
+    signal  data_i      :   unsigned(7 downto 0);
+    signal  data_o      :   unsigned(7 downto 0);
 
 begin
     uut: pc port map(
-        clk=>clk,
-        rst=>rst,
-        wr_en=>wr_en,
-        data_in=>data_in,
-        data_out=>data_out
+        clk     =>  clk,
+        rst     =>  rst,
+        wr_en   =>  wr_en,
+        data_i  =>  data_i,
+        data_o  =>  data_o
     );
-
 
     clk_proc:   process
     begin
@@ -70,13 +69,13 @@ begin
         wr_en<='0';
         wait for period_time*3;
         wr_en<='1';
-        data_in<="00000000";
+        data_i<="00000000";
         wait for period_time;
-        data_in<="00011101";
+        data_i<="00011101";
         
         wait for period_time*3;
         wr_en<='0';
-        data_in<="00101000";
+        data_i<="00101000";
 
         wait;
     end process;
