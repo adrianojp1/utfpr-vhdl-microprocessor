@@ -5,15 +5,14 @@ use ieee.numeric_std.all;
 entity rom is
     port( 
         clk : in std_logic;
-        endereco : in unsigned(6 downto 0);
-        dado : out unsigned(11 downto 0)
+        endereco : in unsigned(6 downto 0); --TODO: Checar tamanho do endereço
+        dado : out unsigned(11 downto 0)    --TODO: Checar tamanho do dado
     );
 end entity;
 
 architecture a_rom of rom is
     type mem is array (0 to 127) of unsigned(11 downto 0); --TODO: Checar o tamanho da memória do processador escolhido
     constant conteudo_rom : mem := (
-        -- caso endereco => conteudo
         0 => "000000000010",
         1 => "100000000000",
         2 => "000000000000",
@@ -25,7 +24,6 @@ architecture a_rom of rom is
         8 => "000000000010",
         9 => "000000000000",
         10 => "000000000000",
-        -- abaixo: casos omissos => (zero em todos os bits)
         others => (others=>'0')
     );
 
