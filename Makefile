@@ -1,7 +1,7 @@
 SHELL:=/bin/bash
 run:
 	ghdl -a ula.vhd
-	ghdl -a reg16bits.vhd
+	ghdl -a registrador.vhd
 	ghdl -a bancoreg.vhd
 	ghdl -a rom.vhd
 	ghdl -a maq_estados.vhd

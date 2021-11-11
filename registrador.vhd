@@ -2,7 +2,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
 
-entity reg16bits is
+entity registrador is
     port(
         clk         :   in std_logic;
         rst         :   in std_logic;
@@ -10,10 +10,10 @@ entity reg16bits is
         data_in     :   in  unsigned(15 downto 0);
         data_out    :   out unsigned(15 downto 0)
     );
-end entity reg16bits;
+end entity registrador;
 
 
-architecture a_reg16bits of reg16bits is
+architecture a_registrador of registrador is
     signal registro     :   unsigned(15 downto 0);
 begin
     process(clk,rst,wr_en)
@@ -28,5 +28,5 @@ begin
     end process;
     
     data_out <= registro;
-end architecture;
+end architecture a_registrador;
 
