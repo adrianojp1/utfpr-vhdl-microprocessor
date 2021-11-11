@@ -6,7 +6,8 @@ run:
 	ghdl -a rom.vhd
 	ghdl -a maq_estados.vhd
 	ghdl -a pc.vhd
-	ghdl -a proto_controle.vhd
+	ghdl -a uc.vhd
+	ghdl -a toplevel.vhd
 	ghdl -a processador.vhd
 
 gtkwave:

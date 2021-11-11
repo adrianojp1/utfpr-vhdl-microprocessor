@@ -11,14 +11,14 @@ architecture a_rom_tb of rom_tb is
         (
             
             clk         : in std_logic;
-            endereco    : in unsigned(6 downto 0);
-            dado        : out unsigned(11 downto 0)
+            endereco    : in unsigned(23 downto 0);
+            dado        : out unsigned(15 downto 0)
         );
     end component;
     
     signal  clk         :   std_logic;
-    signal  endereco    :   unsigned(6 downto 0);
-    signal  dado        :   unsigned(11 downto 0);
+    signal  endereco    :   unsigned(23 downto 0);
+    signal  dado        :   unsigned(15 downto 0);
 
     signal  finished    :   std_logic   := '0';
     signal  period_time :   time        := 100 ns;
@@ -52,17 +52,17 @@ begin
     process
     begin
         wait for period_time*2;
-        endereco <= "0000000";
+        endereco <= "000000";
         wait for period_time*2;
-        endereco <= "0000001";
+        endereco <= "000001";
         wait for period_time*2;
-        endereco <= "0000010";
+        endereco <= "000010";
         wait for period_time*2;
-        endereco <= "0000011";
+        endereco <= "000011";
         wait for period_time*2;
-        endereco <= "0000100";
+        endereco <= "000100";
         wait for period_time*2;
-        endereco <= "0010000";
+        endereco <= "010000";
 
         wait;
     end process;

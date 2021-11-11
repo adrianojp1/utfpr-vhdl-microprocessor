@@ -50,8 +50,8 @@ begin
 
     process
     begin
-        wait for period_time;
         rst<='1';
+        wait for period_time;
         enable<='0';
         wait for period_time*2;      
         rst<='0';
