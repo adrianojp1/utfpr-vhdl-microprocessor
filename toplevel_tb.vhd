@@ -14,8 +14,8 @@ architecture a_toplevel_tb of toplevel_tb is
         );
     end component toplevel;
 
-    signal  period_time     :   time      :=  100 ns;
-    signal  finished        :   std_logic := '0';
+    signal  period_time     :  time      :=  100 ns;
+    signal  finished        :  std_logic := '0';
     signal  clk,rst,wr_en   :  std_logic;
 
 begin
@@ -43,18 +43,12 @@ begin
         wait;
     end process sim_time_proc;
 
-    reset_proc: process
+    process
     begin
-        rst<='0';
-        wait for period_time;
         rst<='1';
         wait for period_time*2;
         rst<='0';
-        wait;
-    end process reset_proc;
-
-    process
-    begin
+        
         wr_en<='1';
         wait for period_time*20;
         
@@ -65,6 +59,11 @@ begin
         wait for period_time*10;
 
         wr_en<='0';
+        
+        rst<='1';
+        wait for period_time*2;
+        rst <= '0';
+        
         wait;
     end process;
 end architecture a_toplevel_tb;

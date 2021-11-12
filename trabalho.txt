@@ -13,7 +13,7 @@ Instruções originais do processador a implementar para operações de:
 *Cópia de valor entre registradores: ld.a %rd,$rs
 *Soma de dois valores: add.a %rd,%rs
 *Subtração de dois valores: sub.a %rd,%rs
-*Desvio incondicional: jpr sign10
+*Desvio incondicional: jpa imm7
 
 É desejável (e fortemente sugerido) pesquisar e determinar o funcionamento de:
 *Desvio condicional

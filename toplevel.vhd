@@ -11,15 +11,15 @@ entity toplevel is
 end entity toplevel;
 
 architecture a_toplevel of toplevel is
-    component rom is 
-        port( 
+    component rom is
+        port(
             clk         :   in  std_logic;
             endereco    :   in  unsigned(23 downto 0);
             mem_data    :   out unsigned(15 downto 0)
         );
     end component;
     
-    component pc is 
+    component pc is
         port(
             clk         :   in  std_logic;
             rst         :   in  std_logic;
@@ -31,18 +31,21 @@ architecture a_toplevel of toplevel is
 
     component uc is
         port(
-            clk         :   in  std_logic;
-            rst         :   in  std_logic;
-            wr_en       :   in  std_logic;
-            pc_o        :   in  unsigned(23 downto 0);
-            pc_i        :   out unsigned(23 downto 0)
+            clk      : IN  std_logic ;
+            rst      : IN  std_logic ;
+            wr_en    : IN  std_logic ;
+            instr    : IN  unsigned (15 downto 0);
+            pc_o     : IN  unsigned (23 downto 0);
+            pc_i     : OUT unsigned (23 downto 0);
+            pc_wr_en : OUT STD_LOGIC
         );
-    end component uc;
-
-    signal pc_i     :   unsigned(23 downto 0);
-    signal pc_o     :   unsigned(23 downto 0);
+    end component;
     
     signal mem_data :   unsigned(15 downto 0);
+    
+    signal pc_i     :   unsigned(23 downto 0);
+    signal pc_o     :   unsigned(23 downto 0);
+    signal pc_wr_en :   STD_LOGIC;
 begin
     rom0: rom port map(
         clk         =>  clk,
@@ -53,7 +56,7 @@ begin
     pc0: pc port map(
         clk         =>  clk,
         rst         =>  rst,
-        wr_en       =>  wr_en,
+        wr_en       =>  pc_wr_en,
         endereco_i  =>  pc_i,
         endereco_o  =>  pc_o
     );
@@ -63,6 +66,8 @@ begin
         rst         =>  rst,
         wr_en       =>  wr_en,
         pc_o        =>  pc_o,
-        pc_i        =>  pc_i
+        pc_i        =>  pc_i,
+        instr       =>  mem_data,
+        pc_wr_en    =>  pc_wr_en
     );
 end architecture a_toplevel;
