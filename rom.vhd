@@ -5,6 +5,7 @@ use ieee.numeric_std.all;
 entity rom is
     port(
         clk         : in std_logic;
+        wr_en       : in STD_LOGIC;
         endereco    : in unsigned(23 downto 0);
         mem_data    : out unsigned(15 downto 0)
     );
@@ -30,8 +31,10 @@ architecture a_rom of rom is
 begin
     process(clk)
     begin
-        if (rising_edge(clk)) then
-            mem_data <= conteudo_rom(to_integer(endereco));
+        if wr_en='1' then
+            if rising_edge(clk) then
+                mem_data <= conteudo_rom(to_integer(endereco));
+            end if;
         end if;
     end process;
 end architecture;

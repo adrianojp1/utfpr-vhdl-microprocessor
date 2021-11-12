@@ -14,6 +14,7 @@ architecture a_toplevel of toplevel is
     component rom is
         port(
             clk         :   in  std_logic;
+            wr_en       :   in  STD_LOGIC;
             endereco    :   in  unsigned(23 downto 0);
             mem_data    :   out unsigned(15 downto 0)
         );
@@ -37,11 +38,13 @@ architecture a_toplevel of toplevel is
             instr    : IN  unsigned (15 downto 0);
             pc_o     : IN  unsigned (23 downto 0);
             pc_i     : OUT unsigned (23 downto 0);
-            pc_wr_en : OUT STD_LOGIC
+            pc_wr_en : OUT STD_LOGIC;
+            rom_wr_en: OUT STD_LOGIC
         );
     end component;
     
     signal mem_data :   unsigned(15 downto 0);
+    signal rom_wr_en:   STD_LOGIC;
     
     signal pc_i     :   unsigned(23 downto 0);
     signal pc_o     :   unsigned(23 downto 0);
@@ -49,6 +52,7 @@ architecture a_toplevel of toplevel is
 begin
     rom0: rom port map(
         clk         =>  clk,
+        wr_en       =>  rom_wr_en,
         endereco    =>  pc_o,
         mem_data    =>  mem_data
     );
@@ -68,6 +72,7 @@ begin
         pc_o        =>  pc_o,
         pc_i        =>  pc_i,
         instr       =>  mem_data,
-        pc_wr_en    =>  pc_wr_en
+        pc_wr_en    =>  pc_wr_en,
+        rom_wr_en   =>  rom_wr_en
     );
 end architecture a_toplevel;

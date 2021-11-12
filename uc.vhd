@@ -10,7 +10,8 @@ entity uc is
         instr       :   in  unsigned(15 downto 0);
         pc_o        :   in  unsigned(23 downto 0);
         pc_i        :   out unsigned(23 downto 0);
-        pc_wr_en    :   out STD_LOGIC
+        pc_wr_en    :   out STD_LOGIC;
+        rom_wr_en   :   out STD_LOGIC
     );
 end entity uc;
 
@@ -42,12 +43,16 @@ begin
     jump_imm(7 downto 0)  <= instr(7  downto 0);
     
     jump_en <= '1' when opcode="1111" else
-               '0';
+    '0';
     
     pc_i <= pc_o+1    when wr_en='1' and estado='1' and jump_en='0' else
-            jump_imm  when wr_en='1' and estado='1' and jump_en='1' else
-            pc_o;
+    jump_imm  when wr_en='1' and estado='1' and jump_en='1' else
+    pc_o;
     
-    pc_wr_en <= estado;
+    pc_wr_en <= '1' when estado='1' else
+                '0';
+   
+    rom_wr_en <= '0' when estado='1' else
+                 '1';
 
 end architecture a_uc;
