@@ -13,7 +13,8 @@ entity uc is
         mem_read    :   out std_logic;
         pc_write    :   out std_logic;
         reg_write   :   out std_logic;
-        ula_op      :   out unsigned(1 downto 0)
+        ula_op      :   out unsigned(1 downto 0);
+        estado      :   out unsigned(1 downto 0)
     );
 end entity uc;
 
@@ -26,24 +27,24 @@ architecture a_uc of uc is
         );
     end component;
     
-    signal estado    : unsigned(1 downto 0);
+    signal estado_s  : unsigned(1 downto 0);
     signal jump_en   : std_logic;
 begin
     
     maq_estados0: maq_estados port map(
         clk    => clk,
         rst    => rst,
-        estado => estado
+        estado => estado_s
     );
     
-    mem_read <= '1' when estado="00" else
+    mem_read <= '1' when estado_s="00" else
                 '0';
 
-    pc_write <= '1' when estado="00" else
+    pc_write <= '1' when estado_s="00" else
                 '0';
 
     reg_write <= 
-    '1' when estado="10" and (
+    '1' when estado_s="10" and (
         opcode=x"2" or
         opcode=x"3" or
         opcode=x"4" or
@@ -51,16 +52,18 @@ begin
         ) else
     '0';
 
-    jump_en <= '1' when estado="10" and opcode=x"1" else
+    jump_en <= '1' when estado_s="10" and opcode=x"1" else
                '0';
 
-    ula_op <= "01" when estado="10" and opcode=x"5" else
-              "10" when estado="10" and opcode=x"6" else
-              "11" when estado="10" and opcode=x"7" else
+    ula_op <= "00" when estado_s="10" and opcode=x"4" else
+              "01" when estado_s="10" and opcode=x"5" else
+              "10" when estado_s="10" and opcode=x"6" else
+              "11" when estado_s="10" and opcode=x"7" else
               "00";
     
-    pc_i <= pc_o+1     when estado="10" and jump_en='0' else
-            "0" & cte  when estado="10" and jump_en='1' else
+    pc_i <= pc_o+1     when estado_s="10" and jump_en='0' else
+            "0" & cte  when estado_s="10" and jump_en='1' else
             pc_o;
 
+    estado <= estado_s;
 end architecture a_uc;
