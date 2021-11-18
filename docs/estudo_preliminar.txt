@@ -1,0 +1,18 @@
+Processador S1C17001
+
+1. Estrutura Nome dos registradores
+- 8 registradores de propósitos gerais de 24 bits:
+  R0 até R7
+
+2 registradores especiais de 24 bits
+- PC e SP
+
+1 registrador especial de 8 bits
+- PSR: IL[2:0] IE C V Z N
+
+Instruções originais do processador a implementar para operações de:
+- Carga de constante: ld %rd,sign7
+- Cópia de valor entre registradores: ld %rd,%rs
+- Soma de dois valores: add %rd,%rs
+- Subtração de dois valores: sub %rd,%rs
+- Desvio incondicional: jpa imm7
