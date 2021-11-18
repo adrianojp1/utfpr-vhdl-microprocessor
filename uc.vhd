@@ -39,7 +39,7 @@ begin
     mem_read <= '1' when estado="00" else
                 '0';
 
-    pc_write <= '1' when estado="10" else
+    pc_write <= '1' when estado="00" else
                 '0';
 
     reg_write <= 
@@ -59,8 +59,8 @@ begin
               "11" when estado="10" and opcode=x"7" else
               "00";
     
-    pc_i <= pc_o+1     when estado="01" and jump_en='0' else
-            "0" & cte  when estado="01" and jump_en='1' else
+    pc_i <= pc_o+1     when estado="10" and jump_en='0' else
+            "0" & cte  when estado="10" and jump_en='1' else
             pc_o;
 
 end architecture a_uc;
