@@ -10,23 +10,21 @@ architecture a_maq_estados_tb of maq_estados_tb is
         port(
             clk     :   in  std_logic;
             rst     :   in  std_logic;
-            enable  :   in  std_logic;
-            estado  :   out  std_logic
+            estado  :   out unsigned(1 downto 0)
         );
     end component;
     
     signal  clk         :   std_logic;
     signal  rst         :   std_logic;
-    signal  enable      :   std_logic;
-    signal  estado      :   std_logic;
+    signal  estado      :   unsigned(1 downto 0);
 
     signal  period_time :   time      :=  100 ns;
     signal  finished    :   std_logic := '0';
 begin
+    
     uut: maq_estados port map(
         clk=>clk,
         rst=>rst,
-        enable=>enable,
         estado=>estado
     );
 
@@ -51,16 +49,12 @@ begin
     process
     begin
         rst<='1';
-        wait for period_time;
-        enable<='0';
-        wait for period_time*2;      
+
+        wait for period_time*2;
         rst<='0';
 
-        wait for period_time*3;
-        enable<='1';
-
-        wait for period_time*5;
-        enable<='0';
+        wait for period_time*10;
+        rst<='1';
 
         wait;
     end process;

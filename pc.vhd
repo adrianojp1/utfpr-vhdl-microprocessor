@@ -7,8 +7,8 @@ entity pc is
         clk         :   in  std_logic;
         rst         :   in  std_logic;
         wr_en       :   in  std_logic;
-        endereco_i  :   in  unsigned(23 downto 0);
-        endereco_o  :   out unsigned(23 downto 0)
+        endereco_i  :   in  unsigned(7 downto 0);
+        endereco_o  :   out unsigned(7 downto 0)
     );
 end entity;
 
@@ -19,7 +19,7 @@ begin
     process(clk,rst,wr_en)
     begin
         if rst='1' then
-            endereco_o <= x"000000";
+            endereco_o <= x"00";
         elsif wr_en='1' and rising_edge(clk) then
             endereco_o<=endereco_i;
         end if;

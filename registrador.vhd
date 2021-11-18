@@ -14,15 +14,15 @@ end entity registrador;
 
 
 architecture a_registrador of registrador is
-    signal registro     :   unsigned(15 downto 0);
+    signal registro : unsigned(15 downto 0);
 begin
     process(clk,rst,wr_en)
     begin
         if rst='1' then
-            registro <= "0000000000000000"; --reset
+            registro <= x"0000";
         elsif wr_en='1' then
             if rising_edge(clk) then
-                registro <= data_in; --set
+                registro <= data_in;
             end if;
         end if;
     end process;

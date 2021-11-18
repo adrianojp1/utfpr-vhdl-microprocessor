@@ -14,6 +14,12 @@ gtkwave:
 	ghdl -a $(tb)
 	ghdl -r $${tb/.*/} --wave=ondas.ghw
 	gtkwave.exe ondas.ghw
+
+gtkwave_linux:
+	ghdl -a $(tb)
+	ghdl -r $${tb/.*/} --wave=ondas.ghw
+	gtkwave ondas.ghw
+
 clean:
 	rm -f work-obj93.cf
 	rm -f ondas.ghw
