@@ -6,12 +6,10 @@ entity uc is
     port(
         clk         :   in  std_logic;
         rst         :   in  std_logic;
-        instr       :   in  unsigned(15 downto 0);
+        opcode      :   in  unsigned(3 downto 0);
+        cte         :   in  unsigned(6 downto 0);
         pc_o        :   in  unsigned(7 downto 0);
         pc_i        :   out unsigned(7 downto 0);
-        rd          :   out unsigned(2 downto 0);
-        rs          :   out unsigned(2 downto 0);
-        cte_out     :   out unsigned(6 downto 0);
         mem_read    :   out std_logic;
         pc_write    :   out std_logic;
         reg_write   :   out std_logic;
@@ -28,8 +26,6 @@ architecture a_uc of uc is
         );
     end component;
     
-    signal opcode    : unsigned(3 downto 0);
-    signal cte       : unsigned(6 downto 0);
     signal estado    : unsigned(1 downto 0);
     signal jump_en   : std_logic;
 begin
@@ -40,20 +36,14 @@ begin
         estado => estado
     );
     
-    opcode  <= instr(15 downto 12);
-    rd      <= instr(11 downto 9);
-    rs      <= instr(8  downto 6);
-    cte     <= instr(6  downto 0);
-    cte_out <= cte;
-    
     mem_read <= '1' when estado="00" else
                 '0';
 
-    pc_write <= '1' when estado="11" else
+    pc_write <= '1' when estado="10" else
                 '0';
 
     reg_write <= 
-    '1' when estado="11" and (
+    '1' when estado="10" and (
         opcode=x"2" or
         opcode=x"3" or
         opcode=x"4" or
@@ -61,12 +51,12 @@ begin
         ) else
     '0';
 
-    jump_en <= '1' when estado="11" and opcode=x"1" else
+    jump_en <= '1' when estado="10" and opcode=x"1" else
                '0';
 
-    ula_op <= "01" when estado="11" and opcode=x"5" else
-              "10" when estado="11" and opcode=x"6" else
-              "11" when estado="11" and opcode=x"7" else
+    ula_op <= "01" when estado="10" and opcode=x"5" else
+              "10" when estado="10" and opcode=x"6" else
+              "11" when estado="10" and opcode=x"7" else
               "00";
     
     pc_i <= pc_o+1     when estado="01" and jump_en='0' else
