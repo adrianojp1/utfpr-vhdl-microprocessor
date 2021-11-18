@@ -7,28 +7,43 @@ entity uc_tb is
 end entity uc_tb;
 
 architecture a_uc_tb of uc_tb is
-    component proto_controle is
+    component uc is
         port(
             clk         :   in  std_logic;
             rst         :   in  std_logic;
             wr_en       :   in  std_logic;
-            data_o      :   out unsigned(23 downto 0)
+            instr       :   in  unsigned(15 downto 0);
+            pc_o        :   in  unsigned(7 downto 0);
+            pc_i        :   out unsigned(7 downto 0);
+            pc_wr_en    :   out STD_LOGIC;
+            rom_wr_en   :   out STD_LOGIC
         );
-    end component proto_controle;
+    end component uc;
 
-    signal  period_time :   time      :=  100 ns;
-    signal  finished    :   std_logic := '0';
-    signal  data_o      :   unsigned(23 downto 0);
+    signal period_time :   time      :=  100 ns;
+    signal finished    :   std_logic := '0';
+    
+    signal clk         :   std_logic;
+    signal rst         :   std_logic;
+    signal wr_en       :   std_logic;
 
-    signal  clk         :   std_logic;
-    signal  rst         :   std_logic;
-    signal  wr_en       :   std_logic;
+    signal instr       :   unsigned(15 downto 0);
+    signal pc_o        :   unsigned(7 downto 0);
+    signal pc_i        :   unsigned(7 downto 0);
+
+    signal pc_wr_en    :   STD_LOGIC;
+    signal rom_wr_en   :   STD_LOGIC;
 begin
-    uut: proto_controle port map(
-        clk     =>  clk,
-        rst     =>  rst,
-        wr_en   =>  wr_en,
-        data_o  =>  data_o
+
+    uut: uc port map(
+        clk => clk,
+        rst => rst,
+        wr_en => wr_en,
+        instr => instr,
+        pc_o => pc_o,
+        pc_i => pc_i,
+        pc_wr_en => pc_wr_en,
+        rom_wr_en => rom_wr_en
     );
 
     clk_proc:   process
@@ -49,28 +64,11 @@ begin
         wait;
     end process sim_time_proc;
 
-    reset_proc: process
-    begin
-        rst<='0';
-        wait for period_time;
-        rst<='1';
-        wait for period_time*2;
-        rst<='0';
-        wait;
-    end process reset_proc;
-
     process
     begin
-        wr_en<='1';
-        wait for period_time*20;
-        
-        wr_en<='0';
-        wait for period_time*5;
+        rst<='1';
+        wait for period_time*2;
 
-        wr_en<='1';
-        wait for period_time*10;
-
-        wr_en<='0';
         wait;
     end process;
 

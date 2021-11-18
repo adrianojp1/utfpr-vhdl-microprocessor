@@ -9,22 +9,27 @@ architecture a_ula_tb of ula_tb is
     component ula is
         port(
             in_x, in_y : IN  unsigned(15 downto 0);
-            in_sel     : IN  unsigned(1  downto 0);
+            sel_op     : IN  unsigned(1  downto 0);
             saida      : OUT unsigned(15 downto 0)
         );
     end component;
     
     signal in_x, in_y, saida : unsigned(15 downto 0);
-    signal in_sel            : unsigned(1  downto 0);
+    signal sel_op            : unsigned(1  downto 0);
 begin
 
-    uut: ula port map(in_x,in_y,in_sel,saida);
+    uut: ula port map(
+        in_x=>in_x,
+        in_y=>in_y,
+        sel_op=>sel_op,
+        saida=>saida
+    );
     
     process
     begin
         ----------------------------------------
         -- Testes de soma
-        in_sel <= "00";
+        sel_op <= "00";
         -- 3 + 8
         in_x <= "0000000000000011";
         in_y <= "0000000000001000";
@@ -47,7 +52,7 @@ begin
         
         ----------------------------------------
         -- Testes de subtração
-        in_sel <= "01";
+        sel_op <= "01";
         -- 8 - 3
         in_x <= "0000000000001000";
         in_y <= "0000000000000011";
@@ -70,7 +75,7 @@ begin
         
         ----------------------------------------
         -- Testes de maior
-        in_sel <= "10";
+        sel_op <= "10";
         -- 8 > 3
         in_x <= "0000000000001000";
         in_y <= "0000000000000011";
@@ -88,7 +93,7 @@ begin
         
         ----------------------------------------
         -- Testes de ímpar
-        in_sel <= "11";
+        sel_op <= "11";
         -- 10
         in_x <= "0000000000001010";
         wait for 50 ns;

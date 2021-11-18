@@ -37,3 +37,7 @@ mem_init/
 ## VHDLPlus
 *.toml
 *.vhdpproj
+
+## GHDL
+*.ghw
+*.cf

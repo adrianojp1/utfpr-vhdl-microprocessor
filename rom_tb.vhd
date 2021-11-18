@@ -7,18 +7,16 @@ end entity;
 
 architecture a_rom_tb of rom_tb is
     component rom is 
-        port
-        (
-            
-            clk         : in std_logic;
-            endereco    : in unsigned(23 downto 0);
-            dado        : out unsigned(15 downto 0)
+        port(
+            clk         : in  std_logic;
+            endereco    : in  unsigned(7 downto 0);
+            mem_data        : out unsigned(15 downto 0)
         );
     end component;
     
     signal  clk         :   std_logic;
-    signal  endereco    :   unsigned(23 downto 0);
-    signal  dado        :   unsigned(15 downto 0);
+    signal  endereco    :   unsigned(7 downto 0);
+    signal  mem_data    :   unsigned(15 downto 0);
 
     signal  finished    :   std_logic   := '0';
     signal  period_time :   time        := 100 ns;
@@ -27,7 +25,7 @@ begin
     uut: rom port map(
         clk=>clk,
         endereco=>endereco,
-        dado=>dado
+        mem_data=>mem_data
     );
 
     clk_proc:   process
@@ -52,17 +50,22 @@ begin
     process
     begin
         wait for period_time*2;
-        endereco <= "000000";
+        endereco <= x"00";
+
         wait for period_time*2;
-        endereco <= "000001";
+        endereco <= x"01";
+
         wait for period_time*2;
-        endereco <= "000010";
+        endereco <= x"02";
+
         wait for period_time*2;
-        endereco <= "000011";
+        endereco <= x"0B";
+
         wait for period_time*2;
-        endereco <= "000100";
+        endereco <= x"05";
+        
         wait for period_time*2;
-        endereco <= "010000";
+        endereco <= x"07";
 
         wait;
     end process;

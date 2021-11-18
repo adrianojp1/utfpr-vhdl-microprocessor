@@ -9,11 +9,11 @@ end entity;
 architecture a_pc_tb of pc_tb is
     component pc is
         port(
-            clk     :   in  std_logic;
-            rst     :   in  std_logic;
-            wr_en   :   in  std_logic;
-            endereco_i  :   in  unsigned(23 downto 0);
-            endereco_o  :   out unsigned(23 downto 0)
+            clk         :   in  std_logic;
+            rst         :   in  std_logic;
+            wr_en       :   in  std_logic;
+            endereco_i  :   in  unsigned(7 downto 0);
+            endereco_o  :   out unsigned(7 downto 0)
         );
     end component pc;
 
@@ -23,8 +23,8 @@ architecture a_pc_tb of pc_tb is
     signal  clk         :   std_logic;
     signal  rst         :   std_logic;
     signal  wr_en       :   std_logic;
-    signal  endereco_i      :   unsigned(23 downto 0);
-    signal  endereco_o      :   unsigned(23 downto 0);
+    signal  endereco_i  :   unsigned(7 downto 0);
+    signal  endereco_o  :   unsigned(7 downto 0);
 
 begin
     uut: pc port map(
@@ -53,30 +53,27 @@ begin
         wait;
     end process sim_time_proc;
 
-    reset_proc: process
-    begin
-        rst<='0';
-        wait for period_time;
-        rst<='1';
-        wait for period_time*2;
-        rst<='0';
-        wait;
-    end process reset_proc;
-
     process
     begin
+        rst<='1';
+
+        wait for period_time*2;
+        rst<='0';
         wr_en<='0';
+
         wait for period_time*3;
         wr_en<='1';
-        endereco_i<=x"000000";
+        endereco_i<=x"01";
+
         wait for period_time;
-        endereco_i<=x"001101";
+        endereco_i<=x"05";
+
         wait for period_time;
-        endereco_i<=x"00AA11";
+        endereco_i<=x"1A";
         
         wait for period_time*3;
         wr_en<='0';
-        endereco_i<=x"001234";
+        endereco_i<=x"2F";
 
         wait;
     end process;
