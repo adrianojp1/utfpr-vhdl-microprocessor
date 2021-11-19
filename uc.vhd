@@ -37,11 +37,11 @@ begin
         estado => estado_s
     );
     
-    mem_read <= '1' when estado_s="00" else
+    mem_read <= '1' when estado_s="01" else
                 '0';
 
-    pc_write <= '1' when estado_s="00" else
-               '0';
+    pc_write <= '1' when estado_s="11" else
+                '0';
 
     reg_write <= 
     '1' when estado_s="10" and (
@@ -61,9 +61,8 @@ begin
               "11" when estado_s="10" and opcode=x"7" else
               "00";
     
-    pc_i <= pc_o+1  when jump_en='0' else
-            cte     when jump_en='1' else
-            pc_o;
+    pc_i <= cte when jump_en='1' else
+            pc_o+1;
 
     estado <= estado_s;
 end architecture a_uc;

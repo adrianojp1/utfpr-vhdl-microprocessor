@@ -1,6 +1,3 @@
---- README não formatado ---
-
-[Cópia do estudo preliminar]
 Instruções originais do processador a implementar para operações de:
 - Carga de constante:                   ld %rd,sign7
 - Cópia de valor entre registradores:   ld %rd,%rs
@@ -18,7 +15,7 @@ Instruções (segundo o lab #5) + opcodes
 - comp. maior:                                  x6
 - impar:                                        x7
 
-Codificação Opcode:
+Formatos de codificações:
 Formato I (operações com constantes):
 opcode[15:12] rd[11:9] cte[7:0]
 
@@ -34,12 +31,84 @@ Código lab 5:
 6. No endereço 20, copia R5 para R3
 7. Salta para a terceira instrução desta lista (R5 <= R3+R4)
 
-1. ld $R3,5
-2. ld $R4,8
-3. ld $R5,$R3
-4. add $R5,$R4
-5. ld $R1,1
-6. sub $R5,$R1
-7. jpa 20
+0. ld $R3,5
+1. ld $R4,8
+2. ld $R5,$R3
+3. add $R5,$R4
+4. ld $R1,1
+5. sub $R5,$R1
+6. jpa 20
 20. ld $R3,$R5
-21. jpa 3
+21. jpa 2
+
+1. Carrega R3 (o registrador 3) com o valor 5
+Carga de constante x"2"
+ld $R3 5
+ld = 0010 
+$R3= 011 
+5  = 00000101
+Formato I
+INSTRUÇÃO: 0010 011 0 00000101
+
+2. Carrega R4 com 8
+ld $R4 8
+ld = 0010 
+$R4= 100 
+8  = 00001000
+Formato I
+INSTRUÇÃO: 0010 100 0 00001000
+
+3. Soma R3 com R4 e guarda em R5
+ld $R5,$R3
+add $R5,$R4
+
+ld = 0011
+$R5= 101
+$R3= 011
+Formato R
+INSTRUÇÃO: 0011 101 011 000000
+
+add = 0100
+$R5= 101
+$R4= 100
+Formato R
+INSTRUÇÃO: 0100 101 100 000000
+
+4. Subtrai 1 de R5
+ld $R1,1
+sub $R5,$R1
+
+ld  = 0010
+$R1 = 001
+1   = 00000001
+Formato R
+INSTRUÇÃO: 0010 001 0 00000001
+
+sub = 0101
+$R5 = 101
+$R1 = 001
+Formato R
+INSTRUÇÃO: 0101 101 001 000000 
+
+5. Salta para o endereço 20
+jpa 20
+jpa = 0001
+20  = 00010100
+Formato I
+INSTRUÇÃO: 0001 000000 010100
+
+6. No endereço 20, copia R5 para R3
+ld $R3,$R5
+ld = 0011
+$R3= 011
+$R5= 101
+Formato R
+INSTRUÇÃO: 0011 011 101 000000
+
+7. Salta para a terceira instrução desta lista (R5 <= R3+R4)
+jpa 2
+
+jpa = 0001
+2   = 0000010
+Formato I
+INSTRUÇÃO: 0001 000000 000010
