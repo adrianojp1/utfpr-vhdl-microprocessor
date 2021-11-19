@@ -18,9 +18,20 @@ architecture a_uc_tb of uc_tb is
             mem_read    :   out std_logic;
             pc_write    :   out std_logic;
             reg_write   :   out std_logic;
-            ula_op      :   out unsigned(1 downto 0)
+            ula_op      :   out unsigned(1 downto 0);    
+            estado      :   out unsigned(1 downto 0)    
         );
     end component uc;
+
+    component pc is
+        port(
+            clk         :   in  std_logic;
+            rst         :   in  std_logic;
+            wr_en       :   in  std_logic;
+            endereco_i  :   in  unsigned(7 downto 0);
+            endereco_o  :   out unsigned(7 downto 0)
+        );
+    end component pc;
 
     signal period_time :   time      :=  100 ns;
     signal finished    :   std_logic := '0';
@@ -37,6 +48,7 @@ architecture a_uc_tb of uc_tb is
     signal pc_write    :   std_logic;
     signal reg_write   :   std_logic;
     signal ula_op      :   unsigned(1 downto 0);
+    signal estado      :   unsigned(1 downto 0);
 begin
 
     uut: uc port map(
@@ -49,7 +61,16 @@ begin
         mem_read => mem_read,
         pc_write => pc_write,
         reg_write => reg_write,
-        ula_op => ula_op
+        ula_op => ula_op,
+        estado  =>  estado
+    );
+
+    pc0: pc port map(
+        clk         =>  clk,
+        rst         =>  rst,
+        wr_en       =>  pc_write,
+        endereco_i  =>  pc_i,
+        endereco_o  =>  pc_o
     );
 
     clk_proc:   process
@@ -63,6 +84,7 @@ begin
         wait;
     end process clk_proc;
 
+
     sim_time_proc:  process
     begin
         wait for 10 us;
@@ -74,48 +96,40 @@ begin
     begin
         rst<='1';
 
-        wait for period_time*2;
+        wait for period_time*2.5;
         rst<='0';
-        pc_o <= x"00";
         opcode <= x"0";
         cte <= "0000000";
         
         wait for period_time*3; -- espera todos os estados
-        pc_o <= x"01";
         opcode <= x"1";
-        cte <= "0000011";
+        cte <= "0000111";
         
         wait for period_time*3;
-        pc_o <= x"02";
         opcode <= x"2";
         cte <= "0001111";
         
         wait for period_time*3;
-        pc_o <= x"03";
         opcode <= x"3";
         cte <= "1000000";
         
         wait for period_time*3;
-        pc_o <= x"04";
         opcode <= x"4";
         cte <= "1000000";
         
         wait for period_time*3;
-        pc_o <= x"05";
         opcode <= x"5";
         cte <= "1000000";
         
         wait for period_time*3;
-        pc_o <= x"06";
         opcode <= x"6";
         cte <= "1000000";
         
         wait for period_time*3;
-        pc_o <= x"07";
         opcode <= x"7";
         cte <= "1000000";
-
-        wait for period_time*3;
+        
+        wait for period_time*30;
         rst<='1';
 
         wait;

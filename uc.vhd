@@ -41,7 +41,7 @@ begin
                 '0';
 
     pc_write <= '1' when estado_s="00" else
-                '0';
+               '0';
 
     reg_write <= 
     '1' when estado_s="10" and (
@@ -52,17 +52,17 @@ begin
         ) else
     '0';
 
-    jump_en <= '1' when estado_s="10" and opcode=x"1" else
+    jump_en <= '1' when opcode=x"1" else
                '0';
 
     ula_op <= "00" when estado_s="10" and opcode=x"4" else
               "01" when estado_s="10" and opcode=x"5" else
               "10" when estado_s="10" and opcode=x"6" else
               "11" when estado_s="10" and opcode=x"7" else
-              "00";
+              ula_op;
     
-    pc_i <= pc_o+1     when estado_s="10" and jump_en='0' else
-            "0" & cte  when estado_s="10" and jump_en='1' else
+    pc_i <= pc_o+1     when jump_en='0' else
+            "0" & cte  when jump_en='1' else
             pc_o;
 
     estado <= estado_s;

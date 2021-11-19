@@ -1,37 +1,51 @@
 [*]
-[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Thu Nov 18 22:28:17 2021
+[*] GTKWave Analyzer v3.3.94 (w)1999-2018 BSI
+[*] Thu Nov 18 23:41:37 2021
 [*]
-[dumpfile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/ondas.ghw"
-[dumpfile_mtime] "Thu Nov 18 22:25:47 2021"
-[dumpfile_size] 2783
-[savefile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/generated_signals/uc_tb.gtkw"
-[timestart] 148000000
-[size] 1864 1016
-[pos] -39 -39
-*-28.376650 250000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[dumpfile] "D:\gusta\Documents\arquitetura\vhdl-microprocessor\generated_signals\ondas.ghw"
+[savefile] "D:\gusta\Documents\arquitetura\vhdl-microprocessor\generated_signals\uc_tb.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] 873 73
+*-29.334461 350000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.uc_tb.
-[treeopen] top.uc_tb.uut0.
+[treeopen] top.uc_tb.pc0.
+[treeopen] top.uc_tb.uut.
 [sst_width] 233
-[signals_width] 132
+[signals_width] 150
 [sst_expanded] 1
-[sst_vpaned_height] 579
+[sst_vpaned_height] 327
+@200
+-UC
 @28
-top.uc_tb.uut0.clk
-top.uc_tb.uut0.rst
-#{top.uc_tb.uut0.estado[1:0]} top.uc_tb.uut0.estado[1] top.uc_tb.uut0.estado[0]
+top.uc_tb.finished
+top.uc_tb.rst
+top.uc_tb.clk
+#{top.uc_tb.uut.estado[1:0]} top.uc_tb.uut.estado[1] top.uc_tb.uut.estado[0]
+top.uc_tb.uut.pc_write
+top.uc_tb.uut.jump_en
 @22
-#{top.uc_tb.opcode[3:0]} top.uc_tb.opcode[3] top.uc_tb.opcode[2] top.uc_tb.opcode[1] top.uc_tb.opcode[0]
-#{top.uc_tb.cte[6:0]} top.uc_tb.cte[6] top.uc_tb.cte[5] top.uc_tb.cte[4] top.uc_tb.cte[3] top.uc_tb.cte[2] top.uc_tb.cte[1] top.uc_tb.cte[0]
 #{top.uc_tb.pc_o[7:0]} top.uc_tb.pc_o[7] top.uc_tb.pc_o[6] top.uc_tb.pc_o[5] top.uc_tb.pc_o[4] top.uc_tb.pc_o[3] top.uc_tb.pc_o[2] top.uc_tb.pc_o[1] top.uc_tb.pc_o[0]
 #{top.uc_tb.pc_i[7:0]} top.uc_tb.pc_i[7] top.uc_tb.pc_i[6] top.uc_tb.pc_i[5] top.uc_tb.pc_i[4] top.uc_tb.pc_i[3] top.uc_tb.pc_i[2] top.uc_tb.pc_i[1] top.uc_tb.pc_i[0]
-@28
+#{top.uc_tb.opcode[3:0]} top.uc_tb.opcode[3] top.uc_tb.opcode[2] top.uc_tb.opcode[1] top.uc_tb.opcode[0]
+#{top.uc_tb.cte[6:0]} top.uc_tb.cte[6] top.uc_tb.cte[5] top.uc_tb.cte[4] top.uc_tb.cte[3] top.uc_tb.cte[2] top.uc_tb.cte[1] top.uc_tb.cte[0]
+@c00028
 #{top.uc_tb.ula_op[1:0]} top.uc_tb.ula_op[1] top.uc_tb.ula_op[0]
-top.uc_tb.uut0.pc_write
-top.uc_tb.uut0.mem_read
-top.uc_tb.uut0.jump_en
-@29
-top.uc_tb.uut0.reg_write
+@28
+top.uc_tb.ula_op[1]
+top.uc_tb.ula_op[0]
+@1401200
+-group_end
+@200
+-
+-PC
+@28
+top.uc_tb.pc0.rst
+top.uc_tb.pc0.wr_en
+top.uc_tb.pc0.clk
+@22
+#{top.uc_tb.pc0.endereco_i[7:0]} top.uc_tb.pc0.endereco_i[7] top.uc_tb.pc0.endereco_i[6] top.uc_tb.pc0.endereco_i[5] top.uc_tb.pc0.endereco_i[4] top.uc_tb.pc0.endereco_i[3] top.uc_tb.pc0.endereco_i[2] top.uc_tb.pc0.endereco_i[1] top.uc_tb.pc0.endereco_i[0]
+#{top.uc_tb.pc0.endereco_o[7:0]} top.uc_tb.pc0.endereco_o[7] top.uc_tb.pc0.endereco_o[6] top.uc_tb.pc0.endereco_o[5] top.uc_tb.pc0.endereco_o[4] top.uc_tb.pc0.endereco_o[3] top.uc_tb.pc0.endereco_o[2] top.uc_tb.pc0.endereco_o[1] top.uc_tb.pc0.endereco_o[0]
 [pattern_trace] 1
 [pattern_trace] 0
