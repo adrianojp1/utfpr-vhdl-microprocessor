@@ -63,7 +63,7 @@ begin
     process
     begin
         rst<='1';
-        wait for period_time*2;
+        wait for period_time*3;
         rst<='0';
         
         wait;

@@ -179,7 +179,7 @@ begin
                  read_data_2;
 
     pc_out  <= pc_o;
-    instr   <= mem_data;
+    instr   <= instr_s;
     reg1    <= read_data_1;
     reg2    <= read_data_2;
     ula_out <= ula_out_s;
