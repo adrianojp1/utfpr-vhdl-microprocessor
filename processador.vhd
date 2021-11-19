@@ -7,7 +7,7 @@ entity processador is
         rst     :   in  std_logic;
         clk     :   in  std_logic;
         estado  :   out unsigned(1 downto 0);
-        PC      :   out unsigned(7 downto 0);
+        pc_out  :   out unsigned(7 downto 0);
         instr   :   out unsigned(15 downto 0); -- saída do registrador de instrução
         reg1    :   out unsigned(15 downto 0); -- saída 1 do banco de registradores
         reg2    :   out unsigned(15 downto 0); -- saída 2 do banco de registradores
@@ -62,6 +62,10 @@ architecture a_processador of processador is
     
     component bancoreg is
         port(
+            clk         : IN  std_logic;
+            rst         : IN  std_logic;
+            wr_en       : IN  std_logic;
+            write_reg   : IN  unsigned (2 downto 0);
             read_reg_1  : IN  unsigned (2 downto 0);
             read_reg_2  : IN  unsigned (2 downto 0);
             write_data  : IN  unsigned (15 downto 0);
@@ -173,5 +177,11 @@ begin
     ula_src_a <= read_data_1;
     ula_src_b <= (7 downto 0 => cte(7)) & cte when opcode=x"2" else
                  read_data_2;
+
+    pc_out  <= pc_o;
+    instr   <= mem_data;
+    reg1    <= read_data_1;
+    reg2    <= read_data_2;
+    ula_out <= ula_out_s;
 
 end architecture a_processador;
