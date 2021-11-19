@@ -7,7 +7,7 @@ entity uc is
         clk         :   in  std_logic;
         rst         :   in  std_logic;
         opcode      :   in  unsigned(3 downto 0);
-        cte         :   in  unsigned(6 downto 0);
+        cte         :   in  unsigned(7 downto 0);
         pc_o        :   in  unsigned(7 downto 0);
         pc_i        :   out unsigned(7 downto 0);
         mem_read    :   out std_logic;
@@ -59,10 +59,10 @@ begin
               "01" when estado_s="10" and opcode=x"5" else
               "10" when estado_s="10" and opcode=x"6" else
               "11" when estado_s="10" and opcode=x"7" else
-              ula_op;
+              "00";
     
-    pc_i <= pc_o+1     when jump_en='0' else
-            "0" & cte  when jump_en='1' else
+    pc_i <= pc_o+1  when jump_en='0' else
+            cte     when jump_en='1' else
             pc_o;
 
     estado <= estado_s;

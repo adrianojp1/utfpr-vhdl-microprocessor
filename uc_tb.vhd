@@ -12,7 +12,7 @@ architecture a_uc_tb of uc_tb is
             clk         :   in  std_logic;
             rst         :   in  std_logic;
             opcode      :   in  unsigned(3 downto 0);
-            cte         :   in  unsigned(6 downto 0);
+            cte         :   in  unsigned(7 downto 0);
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
             mem_read    :   out std_logic;
@@ -40,7 +40,7 @@ architecture a_uc_tb of uc_tb is
     signal rst         :   std_logic;
 
     signal opcode      :   unsigned(3 downto 0);
-    signal cte         :   unsigned(6 downto 0);
+    signal cte         :   unsigned(7 downto 0);
     signal pc_o        :   unsigned(7 downto 0);
     signal pc_i        :   unsigned(7 downto 0);
 
@@ -99,35 +99,35 @@ begin
         wait for period_time*2.5;
         rst<='0';
         opcode <= x"0";
-        cte <= "0000000";
+        cte <= "00000000";
         
         wait for period_time*3; -- espera todos os estados
         opcode <= x"1";
-        cte <= "0000111";
+        cte <= "00000111";
         
         wait for period_time*3;
         opcode <= x"2";
-        cte <= "0001111";
+        cte <= "00001111";
         
         wait for period_time*3;
         opcode <= x"3";
-        cte <= "1000000";
+        cte <= "10000000";
         
         wait for period_time*3;
         opcode <= x"4";
-        cte <= "1000000";
+        cte <= "10000000";
         
         wait for period_time*3;
         opcode <= x"5";
-        cte <= "1000000";
+        cte <= "10000000";
         
         wait for period_time*3;
         opcode <= x"6";
-        cte <= "1000000";
+        cte <= "10000000";
         
         wait for period_time*3;
         opcode <= x"7";
-        cte <= "1000000";
+        cte <= "10000000";
         
         wait for period_time*30;
         rst<='1';
