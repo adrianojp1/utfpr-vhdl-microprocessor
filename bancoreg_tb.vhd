@@ -9,9 +9,9 @@ architecture a_bancoreg_tb of bancoreg_tb is
     component bancoreg is
         port
         (
-            clk         : IN  STD_LOGIC ;
-            rst         : IN  STD_LOGIC ;
-            wr_en       : IN  STD_LOGIC ;
+            clk         : IN  std_logic;
+            rst         : IN  std_logic;
+            wr_en       : IN  std_logic;
             write_reg   : IN  unsigned (2 downto 0);
             read_reg_1  : IN  unsigned (2 downto 0);
             read_reg_2  : IN  unsigned (2 downto 0);
@@ -22,8 +22,8 @@ architecture a_bancoreg_tb of bancoreg_tb is
     end component;
     
     constant period_time                          : time      := 100 ns;
-    signal   finished                             : STD_LOGIC := '0';
-    signal   clk, reset, wr_en                    : STD_LOGIC;
+    signal   finished                             : std_logic := '0';
+    signal   clk, reset, wr_en                    : std_logic;
     signal   write_reg, read_reg_1, read_reg_2    : unsigned(2 downto 0);
     signal   write_data, read_data_1, read_data_2 : unsigned(15 downto 0);
 begin

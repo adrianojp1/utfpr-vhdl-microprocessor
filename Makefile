@@ -7,7 +7,6 @@ run:
 	ghdl -a maq_estados.vhd
 	ghdl -a pc.vhd
 	ghdl -a uc.vhd
-	ghdl -a toplevel.vhd
 	ghdl -a processador.vhd
 
 gtkwave:

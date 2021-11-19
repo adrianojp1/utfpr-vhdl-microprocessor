@@ -12,7 +12,6 @@ entity registrador is
     );
 end entity registrador;
 
-
 architecture a_registrador of registrador is
     signal registro : unsigned(15 downto 0);
 begin

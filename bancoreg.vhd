@@ -4,9 +4,9 @@ use IEEE.numeric_std.all;
 
 entity bancoreg is
     port(
-        clk                      : in  STD_LOGIC;
-        rst                      : in  STD_LOGIC;
-        wr_en                    : in  STD_LOGIC;
+        clk                      : in  std_logic;
+        rst                      : in  std_logic;
+        wr_en                    : in  std_logic;
         write_reg                : in  unsigned(2 downto 0);
         read_reg_1, read_reg_2   : in  unsigned(2 downto 0);
         write_data               : in  unsigned(15 downto 0);
@@ -18,16 +18,16 @@ architecture a_bancoreg of bancoreg is
     component registrador is
         port
         (
-            clk      : IN  STD_LOGIC ;
-            rst      : IN  STD_LOGIC ;
-            wr_en    : IN  STD_LOGIC ;
+            clk      : IN  std_logic;
+            rst      : IN  std_logic;
+            wr_en    : IN  std_logic;
             data_in  : IN  unsigned (15 downto 0);
             data_out : OUT unsigned (15 downto 0)
         );
     end component;
     
     signal data_0, data_1, data_2, data_3, data_4, data_5, data_6, data_7: unsigned(15 downto 0);
-    signal wr_en_1, wr_en_2, wr_en_3, wr_en_4, wr_en_5, wr_en_6, wr_en_7: STD_LOGIC;
+    signal wr_en_1, wr_en_2, wr_en_3, wr_en_4, wr_en_5, wr_en_6, wr_en_7: std_logic;
 begin
 
     reg0: registrador port map(
