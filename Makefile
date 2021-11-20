@@ -1,27 +1,29 @@
-SHELL:=/bin/bash
+
+WSLENV ?= notwsl
+ifndef WSLENV
+    gtkwave:=gtkwave.exe
+else
+	gtkwave:=gtkwave
+endif
+
+.PHONY: run clean test
+
+SRCS := $(wildcard *[^_tb].vhd)
+
 run:
-	ghdl -a ula.vhd
-	ghdl -a registrador.vhd
-	ghdl -a bancoreg.vhd
-	ghdl -a rom.vhd
-	ghdl -a maq_estados.vhd
-	ghdl -a pc.vhd
-	ghdl -a uc.vhd
-	ghdl -a processador.vhd
-
-gtkwave:
-	ghdl -a $(tb)
-	ghdl -r $${tb/.*/} --wave=ondas.ghw
-	gtkwave.exe ondas.ghw
-
-gtkwave_linux:
-	ghdl -a $(tb)
-	ghdl -r $${tb/.*/} --wave=ondas.ghw
-	gtkwave ondas.ghw
-
+	ghdl -a ${SRCS}
+	
 clean:
 	rm -f work-obj93.cf
 	rm -f ondas.ghw
 
-test:
-	echo $${a/.*/}
+
+%: %_tb.vhd clean run 
+	ghdl -a $@_tb.vhd
+	ghdl -r $@_tb --wave=ondas.ghw
+
+	@if [ -f "$(wildcard generated_signals/$@_tb.gtkw)" ]; then\
+		${gtkwave} ondas.ghw -a $(wildcard generated_signals/$@_tb.gtkw);\
+	else\
+		${gtkwave} ondas.ghw;\
+	fi
