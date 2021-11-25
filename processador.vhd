@@ -22,6 +22,7 @@ architecture a_processador of processador is
             rst         :   in  std_logic;
             opcode      :   in  unsigned(3 downto 0);
             cte         :   in  unsigned(7 downto 0);
+            carry       :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
             mem_read    :   out std_logic;
@@ -52,33 +53,34 @@ architecture a_processador of processador is
 
     component registrador is
         port(
-            clk             :   in  std_logic;
-            rst             :   in  std_logic;
-            wr_en           :   in  std_logic;
-            data_in         :   in  unsigned(15 downto 0);
-            data_out        :   out unsigned(15 downto 0)
+            clk         :   in  std_logic;
+            rst         :   in  std_logic;
+            wr_en       :   in  std_logic;
+            data_in     :   in  unsigned(15 downto 0);
+            data_out    :   out unsigned(15 downto 0)
         );
     end component;
     
     component bancoreg is
         port(
-            clk         : IN  std_logic;
-            rst         : IN  std_logic;
-            wr_en       : IN  std_logic;
-            write_reg   : IN  unsigned (2 downto 0);
-            read_reg_1  : IN  unsigned (2 downto 0);
-            read_reg_2  : IN  unsigned (2 downto 0);
-            write_data  : IN  unsigned (15 downto 0);
-            read_data_1 : OUT unsigned (15 downto 0);
-            read_data_2 : OUT unsigned (15 downto 0)
+            clk         : in  std_logic;
+            rst         : in  std_logic;
+            wr_en       : in  std_logic;
+            write_reg   : in  unsigned(2 downto 0);
+            read_reg_1  : in  unsigned(2 downto 0);
+            read_reg_2  : in  unsigned(2 downto 0);
+            write_data  : in  unsigned(15 downto 0);
+            read_data_1 : out unsigned(15 downto 0);
+            read_data_2 : out unsigned(15 downto 0)
         );
     end component;
 
     component ula is
         port(
-            in_x, in_y : IN  unsigned(15 downto 0);
-            sel_op     : IN  unsigned(1  downto 0);
-            saida      : OUT unsigned(15 downto 0)
+            in_x, in_y  : in  unsigned(15 downto 0);
+            sel_op      : in  unsigned(1  downto 0);
+            saida       : out unsigned(15 downto 0);
+            carry       : out std_logic
         );
     end component;
     
@@ -106,20 +108,23 @@ architecture a_processador of processador is
     signal ula_src_a        : unsigned(15 downto 0);
     signal ula_src_b        : unsigned(15 downto 0);
     signal ula_out_s        : unsigned(15 downto 0);
+    signal carry            : std_logic;
+    -- signal ula_out_reg_s    : unsigned(15 downto 0);
 begin
 
     uc0: uc port map(
-        clk         => clk,
-        rst         => rst,
-        opcode      => opcode,
-        cte         => cte,
-        pc_o        => pc_o,
-        pc_i        => pc_i,
-        mem_read    => mem_read,
-        pc_write    => pc_write,
-        reg_write   => reg_write,
-        ula_op      => ula_op,
-        estado      => estado
+        clk         =>  clk,
+        rst         =>  rst,
+        opcode      =>  opcode,
+        cte         =>  cte,
+        carry       =>  carry,
+        pc_o        =>  pc_o,
+        pc_i        =>  pc_i,
+        mem_read    =>  mem_read,
+        pc_write    =>  pc_write,
+        reg_write   =>  reg_write,
+        ula_op      =>  ula_op,
+        estado      =>  estado
     );
 
     pc0: pc port map(
@@ -145,43 +150,52 @@ begin
     );
 
     bancoreg0: bancoreg port map(
-        clk         => clk,
-        rst         => rst,
-        wr_en       => reg_write,
-        write_reg   => rd,
-        write_data  => reg_write_data,
-        read_reg_1  => read_reg_1,
-        read_reg_2  => read_reg_2,
-        read_data_1 => read_data_1,
-        read_data_2 => read_data_2
+        clk         =>  clk,
+        rst         =>  rst,
+        wr_en       =>  reg_write,
+        write_reg   =>  rd,
+        write_data  =>  reg_write_data,
+        read_reg_1  =>  read_reg_1,
+        read_reg_2  =>  read_reg_2,
+        read_data_1 =>  read_data_1,
+        read_data_2 =>  read_data_2
     );
 
     ula0: ula port map(
-        in_x    => ula_src_a,
-        in_y    => ula_src_b,
-        sel_op  => ula_op,
-        saida   => ula_out_s
+        in_x        =>  ula_src_a,
+        in_y        =>  ula_src_b,
+        sel_op      =>  ula_op,
+        saida       =>  ula_out_s,
+        carry       =>  carry
     );
+
+    -- ula_out_reg: registrador port map(
+    --     clk         => clk,
+    --     rst         => rst,
+    --     wr_en       => '1',
+    --     data_in     => ula_out_s,
+    --     data_out    => ula_out_reg_s
+    -- );
 
     opcode <= instr_s(15 downto 12);
     rd     <= instr_s(11 downto 9);
     rs     <= instr_s(8  downto 6);
     cte    <= instr_s(7  downto 0);
 
-    reg_write_data <= ula_out_s;
+    reg_write_data  <=  ula_out_s;
 
-    read_reg_1 <= "000" when (opcode=x"3" or opcode=x"2") else
-                  rd;
-    read_reg_2 <= rs;
+    read_reg_1      <=  "000" when (opcode=x"3" or opcode=x"2") else
+                        rd;
+    read_reg_2      <=  rs;
 
-    ula_src_a <= read_data_1;
-    ula_src_b <= (7 downto 0 => cte(7)) & cte when opcode=x"2" else
-                 read_data_2;
+    ula_src_a       <=  read_data_1;
+    ula_src_b       <=  (7 downto 0 => cte(7)) & cte when opcode=x"2" else
+                        read_data_2;
 
-    pc_out  <= pc_o;
-    instr   <= instr_s;
-    reg1    <= read_data_1;
-    reg2    <= read_data_2;
-    ula_out <= ula_out_s;
+    pc_out          <=  pc_o;
+    instr           <=  instr_s;
+    reg1            <=  read_data_1;
+    reg2            <=  read_data_2;
+    ula_out         <=  ula_out_s;
 
 end architecture a_processador;

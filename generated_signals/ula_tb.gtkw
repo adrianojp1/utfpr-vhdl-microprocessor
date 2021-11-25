@@ -1,0 +1,28 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Thu Nov 25 23:06:54 2021
+[*]
+[dumpfile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/ondas.ghw"
+[dumpfile_mtime] "Thu Nov 25 23:05:51 2021"
+[dumpfile_size] 1373
+[savefile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/generated_signals/ula_tb.gtkw"
+[timestart] 0
+[size] 1864 1016
+[pos] -39 -39
+*-26.511921 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] top.
+[treeopen] top.ula_tb.
+[treeopen] top.ula_tb.uut.
+[sst_width] 233
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 289
+@29
+#{top.ula_tb.sel_op[1:0]} top.ula_tb.sel_op[1] top.ula_tb.sel_op[0]
+@420
+#{top.ula_tb.in_x[15:0]} top.ula_tb.in_x[15] top.ula_tb.in_x[14] top.ula_tb.in_x[13] top.ula_tb.in_x[12] top.ula_tb.in_x[11] top.ula_tb.in_x[10] top.ula_tb.in_x[9] top.ula_tb.in_x[8] top.ula_tb.in_x[7] top.ula_tb.in_x[6] top.ula_tb.in_x[5] top.ula_tb.in_x[4] top.ula_tb.in_x[3] top.ula_tb.in_x[2] top.ula_tb.in_x[1] top.ula_tb.in_x[0]
+#{top.ula_tb.in_y[15:0]} top.ula_tb.in_y[15] top.ula_tb.in_y[14] top.ula_tb.in_y[13] top.ula_tb.in_y[12] top.ula_tb.in_y[11] top.ula_tb.in_y[10] top.ula_tb.in_y[9] top.ula_tb.in_y[8] top.ula_tb.in_y[7] top.ula_tb.in_y[6] top.ula_tb.in_y[5] top.ula_tb.in_y[4] top.ula_tb.in_y[3] top.ula_tb.in_y[2] top.ula_tb.in_y[1] top.ula_tb.in_y[0]
+@28
+top.ula_tb.carry
+[pattern_trace] 1
+[pattern_trace] 0

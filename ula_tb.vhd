@@ -8,21 +8,24 @@ end entity ula_tb;
 architecture a_ula_tb of ula_tb is
     component ula is
         port(
-            in_x, in_y : IN  unsigned(15 downto 0);
-            sel_op     : IN  unsigned(1  downto 0);
-            saida      : OUT unsigned(15 downto 0)
+            in_x, in_y  : in  unsigned(15 downto 0);
+            sel_op      : in  unsigned(1  downto 0);
+            saida       : out unsigned(15 downto 0);
+            carry       : out std_logic
         );
     end component;
     
-    signal in_x, in_y, saida : unsigned(15 downto 0);
-    signal sel_op            : unsigned(1  downto 0);
+    signal in_x, in_y, saida    : unsigned(15 downto 0);
+    signal sel_op               : unsigned(1  downto 0);
+    signal carry                : std_logic;
 begin
 
     uut: ula port map(
-        in_x=>in_x,
-        in_y=>in_y,
-        sel_op=>sel_op,
-        saida=>saida
+        in_x    => in_x,
+        in_y    => in_y,
+        sel_op  => sel_op,
+        saida   => saida,
+        carry   => carry
     );
     
     process
@@ -92,14 +95,21 @@ begin
         wait for 50 ns;
         
         ----------------------------------------
-        -- Testes de ímpar
+        -- Testes de menor
         sel_op <= "11";
-        -- 10
-        in_x <= "0000000000001010";
+        -- 8 < 3
+        in_x <= "0000000000001000";
+        in_y <= "0000000000000011";
         wait for 50 ns;
         
-        -- 5
-        in_x <= "0000000000000101";
+        -- 3 < 8
+        in_x <= "0000000000000011";
+        in_y <= "0000000000001000";
+        wait for 50 ns;
+        
+        -- 8 < 8
+        in_x <= "0000000000001000";
+        in_y <= "0000000000001000";
         wait for 50 ns;
         
         wait;
