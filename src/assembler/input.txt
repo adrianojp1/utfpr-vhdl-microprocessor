@@ -1,0 +1,9 @@
+ld $R3,$0
+ld $R4,$0
+add $R4,$R3
+ld $R7,1
+add $R3,$R7
+ld $R7,30
+cmp $R7,$R3
+jrult 7
+ld $R5,$R4
