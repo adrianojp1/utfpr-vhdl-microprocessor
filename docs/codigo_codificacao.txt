@@ -1,9 +1,10 @@
 Instruções originais do processador a implementar para operações de:
-- Carga de constante:                   ld %rd,sign7
-- Cópia de valor entre registradores:   ld %rd,%rs
-- Soma de dois valores:                 add %rd,%rs
-- Subtração de dois valores:            sub %rd,%rs
-- Desvio incondicional:                 jpa imm7
+- Carga de constante:                   ld      %rd,sign7
+- Cópia de valor entre registradores:   ld      %rd,%rs
+- Soma de dois valores:                 add     %rd,%rs
+- Subtração de dois valores:            sub     %rd,%rs
+- Desvio incondicional absoluto:        jpa     imm7
+- Desvio condicional relativo com C:    jrult   sign7
 
 Instruções (segundo o lab #5) + opcodes
 - nop:                                          x0
@@ -13,7 +14,8 @@ Instruções (segundo o lab #5) + opcodes
 - soma entre registradores:                     x4
 - subtração entre registradores:                x5
 - comp. maior:                                  x6
-- impar:                                        x7
+- comp. menor:                                  x7
+- salto condicional relativo:                   x8
 
 Formatos de codificações:
 Formato I (operações com constantes):
