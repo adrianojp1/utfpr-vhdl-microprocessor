@@ -22,12 +22,13 @@ architecture a_processador of processador is
             rst         :   in  std_logic;
             opcode      :   in  unsigned(3 downto 0);
             cte         :   in  unsigned(7 downto 0);
-            carry       :   in  std_logic;
+            prev_carry  :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
             mem_read    :   out std_logic;
             pc_write    :   out std_logic;
             reg_write   :   out std_logic;
+            carry_write :   out std_logic;
             ula_op      :   out unsigned(1 downto 0);
             estado      :   out unsigned(1 downto 0)
         );
@@ -83,6 +84,16 @@ architecture a_processador of processador is
             carry       : out std_logic
         );
     end component;
+
+    component registrador_flag is
+        port(
+            clk         :   in  std_logic;
+            rst         :   in  std_logic;
+            wr_en       :   in  std_logic;
+            data_in     :   in  std_logic;
+            data_out    :   out std_logic
+        );
+    end component;
     
     signal opcode           : unsigned(3 downto 0);
     signal cte              : unsigned(7 downto 0);
@@ -94,6 +105,7 @@ architecture a_processador of processador is
     signal mem_read         : std_logic;
     signal pc_write         : std_logic;
     signal reg_write        : std_logic;
+    signal carry_write      : std_logic;
     signal ula_op           : unsigned(1 downto 0);
 
     signal mem_data         : unsigned(15 downto 0);
@@ -109,7 +121,8 @@ architecture a_processador of processador is
     signal ula_src_b        : unsigned(15 downto 0);
     signal ula_out_s        : unsigned(15 downto 0);
     signal carry            : std_logic;
-    -- signal ula_out_reg_s    : unsigned(15 downto 0);
+
+    signal prev_carry       : std_logic;
 begin
 
     uc0: uc port map(
@@ -117,12 +130,13 @@ begin
         rst         =>  rst,
         opcode      =>  opcode,
         cte         =>  cte,
-        carry       =>  carry,
+        prev_carry  =>  prev_carry,
         pc_o        =>  pc_o,
         pc_i        =>  pc_i,
         mem_read    =>  mem_read,
         pc_write    =>  pc_write,
         reg_write   =>  reg_write,
+        carry_write =>  carry_write,
         ula_op      =>  ula_op,
         estado      =>  estado
     );
@@ -169,13 +183,13 @@ begin
         carry       =>  carry
     );
 
-    -- ula_out_reg: registrador port map(
-    --     clk         => clk,
-    --     rst         => rst,
-    --     wr_en       => '1',
-    --     data_in     => ula_out_s,
-    --     data_out    => ula_out_reg_s
-    -- );
+    carry_reg: registrador_flag port map(
+        clk         => clk,
+        rst         => rst,
+        wr_en       => carry_write,
+        data_in     => carry,
+        data_out    => prev_carry
+    );
 
     opcode <= instr_s(15 downto 12);
     rd     <= instr_s(11 downto 9);

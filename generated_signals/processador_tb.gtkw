@@ -1,22 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Thu Nov 25 22:03:55 2021
+[*] Fri Nov 26 02:01:46 2021
 [*]
 [dumpfile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/ondas.ghw"
-[dumpfile_mtime] "Thu Nov 25 21:52:39 2021"
-[dumpfile_size] 11701
+[dumpfile_mtime] "Fri Nov 26 01:58:11 2021"
+[dumpfile_size] 9504
 [savefile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/generated_signals/processador_tb.gtkw"
-[timestart] 0
+[timestart] 2437000000
 [size] 1864 1016
 [pos] -1 -1
-*-28.378643 549000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-28.378643 2950000000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] top.
 [treeopen] top.processador_tb.
 [treeopen] top.processador_tb.uut.
 [treeopen] top.processador_tb.uut.uc0.
-[treeopen] top.processador_tb.uut.ula_out_reg.
+[treeopen] top.processador_tb.uut.ula0.
 [sst_width] 233
-[signals_width] 247
+[signals_width] 334
 [sst_expanded] 1
 [sst_vpaned_height] 611
 @200
@@ -80,11 +80,14 @@ top.processador_tb.uut.uc0.reg_write
 @200
 -
 -ULA
+@28
+#{top.processador_tb.uut.uc0.ula_op[1:0]} top.processador_tb.uut.uc0.ula_op[1] top.processador_tb.uut.uc0.ula_op[0]
 @24
 #{top.processador_tb.uut.ula_src_a[15:0]} top.processador_tb.uut.ula_src_a[15] top.processador_tb.uut.ula_src_a[14] top.processador_tb.uut.ula_src_a[13] top.processador_tb.uut.ula_src_a[12] top.processador_tb.uut.ula_src_a[11] top.processador_tb.uut.ula_src_a[10] top.processador_tb.uut.ula_src_a[9] top.processador_tb.uut.ula_src_a[8] top.processador_tb.uut.ula_src_a[7] top.processador_tb.uut.ula_src_a[6] top.processador_tb.uut.ula_src_a[5] top.processador_tb.uut.ula_src_a[4] top.processador_tb.uut.ula_src_a[3] top.processador_tb.uut.ula_src_a[2] top.processador_tb.uut.ula_src_a[1] top.processador_tb.uut.ula_src_a[0]
 #{top.processador_tb.uut.ula_src_b[15:0]} top.processador_tb.uut.ula_src_b[15] top.processador_tb.uut.ula_src_b[14] top.processador_tb.uut.ula_src_b[13] top.processador_tb.uut.ula_src_b[12] top.processador_tb.uut.ula_src_b[11] top.processador_tb.uut.ula_src_b[10] top.processador_tb.uut.ula_src_b[9] top.processador_tb.uut.ula_src_b[8] top.processador_tb.uut.ula_src_b[7] top.processador_tb.uut.ula_src_b[6] top.processador_tb.uut.ula_src_b[5] top.processador_tb.uut.ula_src_b[4] top.processador_tb.uut.ula_src_b[3] top.processador_tb.uut.ula_src_b[2] top.processador_tb.uut.ula_src_b[1] top.processador_tb.uut.ula_src_b[0]
 #{top.processador_tb.uut.ula_out[15:0]} top.processador_tb.uut.ula_out[15] top.processador_tb.uut.ula_out[14] top.processador_tb.uut.ula_out[13] top.processador_tb.uut.ula_out[12] top.processador_tb.uut.ula_out[11] top.processador_tb.uut.ula_out[10] top.processador_tb.uut.ula_out[9] top.processador_tb.uut.ula_out[8] top.processador_tb.uut.ula_out[7] top.processador_tb.uut.ula_out[6] top.processador_tb.uut.ula_out[5] top.processador_tb.uut.ula_out[4] top.processador_tb.uut.ula_out[3] top.processador_tb.uut.ula_out[2] top.processador_tb.uut.ula_out[1] top.processador_tb.uut.ula_out[0]
-#{top.processador_tb.uut.ula_out_reg_s[15:0]} top.processador_tb.uut.ula_out_reg_s[15] top.processador_tb.uut.ula_out_reg_s[14] top.processador_tb.uut.ula_out_reg_s[13] top.processador_tb.uut.ula_out_reg_s[12] top.processador_tb.uut.ula_out_reg_s[11] top.processador_tb.uut.ula_out_reg_s[10] top.processador_tb.uut.ula_out_reg_s[9] top.processador_tb.uut.ula_out_reg_s[8] top.processador_tb.uut.ula_out_reg_s[7] top.processador_tb.uut.ula_out_reg_s[6] top.processador_tb.uut.ula_out_reg_s[5] top.processador_tb.uut.ula_out_reg_s[4] top.processador_tb.uut.ula_out_reg_s[3] top.processador_tb.uut.ula_out_reg_s[2] top.processador_tb.uut.ula_out_reg_s[1] top.processador_tb.uut.ula_out_reg_s[0]
+@29
+top.processador_tb.uut.carry
 @200
 -
 -UC
@@ -99,6 +102,9 @@ top.processador_tb.uut.uc0.opcode[0]
 -group_end
 @28
 top.processador_tb.uut.uc0.jump_en
+top.processador_tb.uut.uc0.branch_en
+top.processador_tb.uut.prev_carry
+top.processador_tb.uut.uc0.carry_write
 @200
 -
 -Regs

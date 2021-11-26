@@ -13,12 +13,13 @@ architecture a_uc_tb of uc_tb is
             rst         :   in  std_logic;
             opcode      :   in  unsigned(3 downto 0);
             cte         :   in  unsigned(7 downto 0);
-            carry       :   in  std_logic;
+            prev_carry  :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
             mem_read    :   out std_logic;
             pc_write    :   out std_logic;
             reg_write   :   out std_logic;
+            carry_write :   out std_logic;
             ula_op      :   out unsigned(1 downto 0);    
             estado      :   out unsigned(1 downto 0)    
         );
@@ -42,13 +43,14 @@ architecture a_uc_tb of uc_tb is
 
     signal opcode      :   unsigned(3 downto 0);
     signal cte         :   unsigned(7 downto 0);
-    signal carry       :   std_logic;
+    signal prev_carry  :   std_logic;
     signal pc_o        :   unsigned(7 downto 0);
     signal pc_i        :   unsigned(7 downto 0);
 
     signal mem_read    :   std_logic;
     signal pc_write    :   std_logic;
     signal reg_write   :   std_logic;
+    signal carry_write :   std_logic;
     signal ula_op      :   unsigned(1 downto 0);
     signal estado      :   unsigned(1 downto 0);
 begin
@@ -58,7 +60,7 @@ begin
         rst         => rst,
         opcode      => opcode,
         cte         => cte,
-        carry       => carry,
+        prev_carry  => prev_carry,
         pc_o        => pc_o,
         pc_i        => pc_i,
         mem_read    => mem_read,
@@ -103,7 +105,7 @@ begin
         rst<='0';
         opcode <= x"0";
         cte <= x"00";
-        carry<='0';
+        prev_carry<='0';
         
         wait for period_time*3; -- espera todos os estados
         opcode <= x"1";
@@ -136,22 +138,22 @@ begin
         wait for period_time*3;
         opcode <= x"8";
         cte <= x"02";
-        carry<='1';
+        prev_carry<='1';
         
         wait for period_time*3;
         opcode <= x"0";
         cte <= x"00";
-        carry<='0';
+        prev_carry<='0';
         
         wait for period_time*3;
         opcode <= x"8";
         cte <= x"FB";
-        carry<='1';
+        prev_carry<='1';
         
         wait for period_time*3;
         opcode <= x"0";
         cte <= x"00";
-        carry<='0';
+        prev_carry<='0';
         
         wait for period_time*30;
         rst<='1';
