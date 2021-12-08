@@ -1,9 +1,12 @@
-ld $R3,$R0
-ld $R4,$R0
-add $R4,$R3
-ld $R7,1
-add $R3,$R7
-ld $R7,30
-cmp $R7,$R3
+ld %r3,%r0
+ld %r4,%r0
+add %r4,%r3
+ld %r7,1
+add %r3,%r7
+ld %r7,30
+cmp %r7,%r3
 jrult -6
-ld $R5,$R4
+ld %r5,%r4
+
+ld [%r1],%r0
+ld %r6,[%r3]

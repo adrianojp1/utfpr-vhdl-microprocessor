@@ -1,12 +1,14 @@
 Instruções originais do processador a implementar para operações de:
-- Carga de constante:                   ld      %rd,sign7
+- Carga de constante para registrador:  ld      %rd,sign7
 - Cópia de valor entre registradores:   ld      %rd,%rs
+- Carga de memória para registrador:    ld      [%rb],%rs
+- Carga de registrador para memória:    ld      %rd,[%rb]
 - Soma de dois valores:                 add     %rd,%rs
 - Subtração de dois valores:            sub     %rd,%rs
 - Desvio incondicional absoluto:        jpa     imm7
 - Desvio condicional relativo com C:    jrult   sign7
 
-Instruções (segundo o lab #5) + opcodes
+Instruções + opcodes
 - nop:                                          x0
 - salto incondicional:                          x1
 - carga de constantes:                          x2
@@ -16,6 +18,8 @@ Instruções (segundo o lab #5) + opcodes
 - comp. maior:                                  x6
 - comp. menor:                                  x7
 - salto condicional relativo:                   x8
+- carga de memória para registrador:            x9
+- carga de registrador para memória:            xA
 
 Formatos de codificações:
 Formato I (operações com constantes):

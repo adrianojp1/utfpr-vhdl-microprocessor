@@ -5,6 +5,8 @@ filename = sys.argv[1]
 with open(filename) as f:
     codigo = f.read().split('\n')
 
+opcode_mem_read = '1001'
+opcode_mem_write = '1010'
 opcode_r = {
     'nop': '0000',
     'ld': '0011',
@@ -33,39 +35,48 @@ def to_instr(cod):
     if cod.strip() == "":
         return '0000_0000_00000000'
 
+    rb = None
+    rd = None
+    rs = None
+    const = None
+
     opcode, values = cod.split(' ')
 
     if ',' in values:
-        rd = get_reg_bin(values.split(',')[0])
-        last = values.split(',')[-1]
+        first, second = values.split(',')
+        if '[' in first:
+            print(first[1:-1])
+            rb = get_reg_bin(first[1:-1])
+            rs = get_reg_bin(second)
 
-        if '$' in last:
-            rs = get_reg_bin(last)
-            const = None
+        elif '[' in second:
+            print(second[1:-1])
+            rd = get_reg_bin(first)
+            rb = get_reg_bin(second[1:-1])
 
         else:
-            rs = None
-            const = last
-
+            rd = get_reg_bin(first)
+            if '%' in second:
+                rs = get_reg_bin(second)
+            else:
+                const = second
     else:
         rd = '000'
-        rs = None
         const = values
 
-    if rs:  # Se tiver o segundo reg
-        instr = opcode_r[opcode]+'_'
-        formato = 'R'
 
-    else:
-        instr = opcode_i[opcode]+'_'
-        formato = 'I'
+    if rd and rb: # Carga de memória para registrador
+        instr = f'{opcode_mem_read}_{rd}_{rb}_000000'
 
-    if formato == 'I':
+    elif rb and rs: # Carga de registrador para memória
+        instr = f'{opcode_mem_write}_{rs}_{rb}_000000'
+
+    elif rd and rs: # Operações com dois registradores
+        instr = f'{opcode_r[opcode]}_{rd}_{rs}_000000'
+
+    else: # Operações com constante
         const_bin = get_const_bin(const)
-        instr += f'{rd}_0_{const_bin}'
-
-    elif formato == 'R':
-        instr += f'{rd}_{rs}_000000'
+        instr = f'{opcode_i[opcode]}_{rd}_0_{const_bin}'
 
     return instr
 

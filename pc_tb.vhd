@@ -5,7 +5,6 @@ use ieee.numeric_std.all;
 entity pc_tb is
 end entity;
 
-
 architecture a_pc_tb of pc_tb is
     component pc is
         port(

@@ -10,7 +10,7 @@ architecture a_rom_tb of rom_tb is
         port(
             clk         : in  std_logic;
             endereco    : in  unsigned(7 downto 0);
-            mem_data        : out unsigned(15 downto 0)
+            mem_data    : out unsigned(15 downto 0)
         );
     end component;
     
@@ -23,9 +23,9 @@ architecture a_rom_tb of rom_tb is
 begin 
 
     uut: rom port map(
-        clk=>clk,
-        endereco=>endereco,
-        mem_data=>mem_data
+        clk         =>  clk,
+        endereco    =>  endereco,
+        mem_data    =>  mem_data
     );
 
     clk_proc:   process
@@ -45,7 +45,6 @@ begin
         finished<='1';
         wait;
     end process sim_time_proc;
-
     
     process
     begin
