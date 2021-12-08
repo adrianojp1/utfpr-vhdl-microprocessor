@@ -8,7 +8,7 @@ entity uc is
         rst         :   in  std_logic;
         opcode      :   in  unsigned(3 downto 0);
         cte         :   in  unsigned(7 downto 0);
-        prev_carry  :   in  std_logic;
+        carry       :   in  std_logic;
         pc_o        :   in  unsigned(7 downto 0);
         pc_i        :   out unsigned(7 downto 0);
         mem_read    :   out std_logic;
@@ -54,12 +54,17 @@ begin
                         ) else
                     '0';
 
-    carry_write <=  '1' when estado_s="10" and branch_en='0' else
+    carry_write <=  '1' when estado_s="10" and (
+                            opcode=x"4" or
+                            opcode=x"5" or
+                            opcode=x"6" or
+                            opcode=x"7"
+                        ) else
                     '0';
 
     jump_en     <=  '1' when opcode=x"1" else
                     '0';
-    branch_en   <=  '1' when opcode=x"8" and prev_carry='1' else
+    branch_en   <=  '1' when opcode=x"8" and carry='1' else
                     '0';
     
     pc_i    <=  cte         when jump_en='1'    else

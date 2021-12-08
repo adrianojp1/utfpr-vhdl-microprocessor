@@ -20,11 +20,11 @@ begin
     saida   <=  sum_17(15 downto 0) when sel_op = "00" else
                 in_x - in_y         when sel_op = "01" else
                 x"0000";
-        
+
     carry   <=  sum_17(16)  when sel_op = "00" else
-                '1'         when sel_op = "01" and in_y <= in_x else
-                '1'         when sel_op = "10" and in_x > in_y else 
+                '1'         when sel_op = "01" and in_y > in_x else
+                '1'         when sel_op = "10" and in_x > in_y else
                 '1'         when sel_op = "11" and in_x = in_y else
                 '0';
-    
+
 end architecture a_ula;

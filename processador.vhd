@@ -22,7 +22,7 @@ architecture a_processador of processador is
             rst         :   in  std_logic;
             opcode      :   in  unsigned(3 downto 0);
             cte         :   in  unsigned(7 downto 0);
-            prev_carry  :   in  std_logic;
+            carry       :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
             mem_read    :   out std_logic;
@@ -120,9 +120,9 @@ architecture a_processador of processador is
     signal ula_src_a        : unsigned(15 downto 0);
     signal ula_src_b        : unsigned(15 downto 0);
     signal ula_out_s        : unsigned(15 downto 0);
-    signal carry            : std_logic;
+    signal ula_carry        : std_logic;
 
-    signal prev_carry       : std_logic;
+    signal carry            : std_logic;
 begin
 
     uc0: uc port map(
@@ -130,7 +130,7 @@ begin
         rst         =>  rst,
         opcode      =>  opcode,
         cte         =>  cte,
-        prev_carry  =>  prev_carry,
+        carry       =>  carry,
         pc_o        =>  pc_o,
         pc_i        =>  pc_i,
         mem_read    =>  mem_read,
@@ -180,15 +180,15 @@ begin
         in_y        =>  ula_src_b,
         sel_op      =>  ula_op,
         saida       =>  ula_out_s,
-        carry       =>  carry
+        carry       =>  ula_carry
     );
 
     carry_reg: registrador_flag port map(
         clk         => clk,
         rst         => rst,
         wr_en       => carry_write,
-        data_in     => carry,
-        data_out    => prev_carry
+        data_in     => ula_carry,
+        data_out    => carry
     );
 
     opcode <= instr_s(15 downto 12);
