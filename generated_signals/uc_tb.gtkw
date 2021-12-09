@@ -1,10 +1,10 @@
 [*]
 [*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
-[*] Fri Nov 26 00:34:35 2021
+[*] Thu Dec  9 16:52:22 2021
 [*]
 [dumpfile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/ondas.ghw"
-[dumpfile_mtime] "Fri Nov 26 00:33:07 2021"
-[dumpfile_size] 3639
+[dumpfile_mtime] "Thu Dec  9 16:51:40 2021"
+[dumpfile_size] 3718
 [savefile] "/home/adriano/UTFPR/arquitetura_computadores/projects/vhdl-microprocessor/generated_signals/uc_tb.gtkw"
 [timestart] 0
 [size] 1864 1016
@@ -26,22 +26,24 @@ top.uc_tb.rst
 top.uc_tb.clk
 #{top.uc_tb.uut.estado[1:0]} top.uc_tb.uut.estado[1] top.uc_tb.uut.estado[0]
 top.uc_tb.uut.pc_write
+top.uc_tb.uut.rom_read
+@29
+top.uc_tb.uut.reg_write
+@28
+top.uc_tb.uut.ram_write
 top.uc_tb.uut.carry_write
-top.uc_tb.uut.mem_read
 top.uc_tb.uut.jump_en
 top.uc_tb.uut.branch_en
 @24
 #{top.uc_tb.pc_i[7:0]} top.uc_tb.pc_i[7] top.uc_tb.pc_i[6] top.uc_tb.pc_i[5] top.uc_tb.pc_i[4] top.uc_tb.pc_i[3] top.uc_tb.pc_i[2] top.uc_tb.pc_i[1] top.uc_tb.pc_i[0]
 #{top.uc_tb.pc_o[7:0]} top.uc_tb.pc_o[7] top.uc_tb.pc_o[6] top.uc_tb.pc_o[5] top.uc_tb.pc_o[4] top.uc_tb.pc_o[3] top.uc_tb.pc_o[2] top.uc_tb.pc_o[1] top.uc_tb.pc_o[0]
-@c00029
+@c00028
 #{top.uc_tb.ula_op[1:0]} top.uc_tb.ula_op[1] top.uc_tb.ula_op[0]
-@29
+@28
 top.uc_tb.ula_op[1]
 top.uc_tb.ula_op[0]
-@1401201
+@1401200
 -group_end
-@28
-top.uc_tb.prev_carry
 @22
 #{top.uc_tb.opcode[3:0]} top.uc_tb.opcode[3] top.uc_tb.opcode[2] top.uc_tb.opcode[1] top.uc_tb.opcode[0]
 #{top.uc_tb.cte[6:0]} top.uc_tb.cte[6] top.uc_tb.cte[5] top.uc_tb.cte[4] top.uc_tb.cte[3] top.uc_tb.cte[2] top.uc_tb.cte[1] top.uc_tb.cte[0]

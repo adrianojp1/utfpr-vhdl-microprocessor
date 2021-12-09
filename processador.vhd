@@ -25,7 +25,8 @@ architecture a_processador of processador is
             carry       :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
-            mem_read    :   out std_logic;
+            rom_read    :   out std_logic;
+            ram_write   :   out std_logic;
             pc_write    :   out std_logic;
             reg_write   :   out std_logic;
             carry_write :   out std_logic;
@@ -94,6 +95,16 @@ architecture a_processador of processador is
             data_out    :   out std_logic
         );
     end component;
+
+    component ram is
+        port(
+            clk         :   in std_logic;
+            wr_en       :   in std_logic;
+            endereco    :   in unsigned(7 downto 0);
+            dado_in     :   in unsigned(15 downto 0);
+            dado_out    :   out unsigned(15 downto 0)
+        );
+    end component ram;
     
     signal opcode           : unsigned(3 downto 0);
     signal cte              : unsigned(7 downto 0);
@@ -102,7 +113,8 @@ architecture a_processador of processador is
     signal pc_o             : unsigned(7 downto 0);
     signal pc_i             : unsigned(7 downto 0);
 
-    signal mem_read         : std_logic;
+    signal rom_read         : std_logic;
+    signal ram_write        : std_logic;
     signal pc_write         : std_logic;
     signal reg_write        : std_logic;
     signal carry_write      : std_logic;
@@ -123,6 +135,10 @@ architecture a_processador of processador is
     signal ula_carry        : std_logic;
 
     signal carry            : std_logic;
+
+    signal ram_endereco     : unsigned(7 downto 0);
+    signal ram_write_data   : unsigned(15 downto 0);
+    signal ram_read_data    : unsigned(15 downto 0);
 begin
 
     uc0: uc port map(
@@ -133,7 +149,8 @@ begin
         carry       =>  carry,
         pc_o        =>  pc_o,
         pc_i        =>  pc_i,
-        mem_read    =>  mem_read,
+        rom_read    =>  rom_read,
+        ram_write   =>  ram_write,
         pc_write    =>  pc_write,
         reg_write   =>  reg_write,
         carry_write =>  carry_write,
@@ -158,7 +175,7 @@ begin
     instr_reg: registrador port map(
         clk         =>  clk,
         rst         =>  rst,
-        wr_en       =>  mem_read,
+        wr_en       =>  rom_read,
         data_in     =>  mem_data,
         data_out    =>  instr_s
     );
@@ -191,12 +208,21 @@ begin
         data_out    => carry
     );
 
+    ram0: ram port map(
+        clk         =>  clk,
+        wr_en       =>  ram_write,
+        endereco    =>  ram_endereco,
+        dado_in     =>  ram_write_data,
+        dado_out    =>  ram_read_data
+    );
+
     opcode <= instr_s(15 downto 12);
     rd     <= instr_s(11 downto 9);
     rs     <= instr_s(8  downto 6);
     cte    <= instr_s(7  downto 0);
 
-    reg_write_data  <=  ula_out_s;
+    reg_write_data  <=  ram_read_data when opcode=x"9" else
+                        ula_out_s;
 
     read_reg_1      <=  "000" when (opcode=x"3" or opcode=x"2") else
                         rd;
@@ -206,10 +232,13 @@ begin
     ula_src_b       <=  (7 downto 0 => cte(7)) & cte when opcode=x"2" else
                         read_data_2;
 
+    ram_endereco    <=  read_data_2(7  downto 0);
+    ram_write_data  <=  read_data_1;
+    
     pc_out          <=  pc_o;
     instr           <=  instr_s;
     reg1            <=  read_data_1;
     reg2            <=  read_data_2;
-    ula_out         <=  ula_out_s;
+    ula_out         <=  ram_read_data;
 
 end architecture a_processador;

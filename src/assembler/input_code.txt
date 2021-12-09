@@ -1,12 +1,18 @@
-ld %r3,%r0
-ld %r4,%r0
-add %r4,%r3
-ld %r7,1
-add %r3,%r7
-ld %r7,30
-cmp %r7,%r3
-jrult -6
-ld %r5,%r4
+// Setando limites e constantes
+    ld %r7,33
+    ld %r6,1
 
-ld [%r1],%r0
-ld %r6,[%r3]
+// Preenchendo a memória do 1 ao 32
+    ld %r1,1
+    ld [%r1],%r1
+    add %r1,%r6
+    cmp %r7,%r1
+    jrult -4
+
+// Atribuindo 0 aos múltiplos de r1 na memória começando com r1 = 2
+    ld %r1,2
+    ld %r2,%r1
+    add %r2,%r6
+    ld %r3,%r2
+    sub %r3,%r1
+    jrult -2

@@ -22,7 +22,7 @@ begin
                 x"0000";
 
     carry   <=  sum_17(16)  when sel_op = "00" else
-                '1'         when sel_op = "01" and in_y > in_x else
+                '1'         when sel_op = "01" and in_x < in_y else
                 '1'         when sel_op = "10" and in_x > in_y else
                 '1'         when sel_op = "11" and in_x = in_y else
                 '0';

@@ -1,8 +1,8 @@
 Instruções originais do processador a implementar para operações de:
 - Carga de constante para registrador:  ld      %rd,sign7
 - Cópia de valor entre registradores:   ld      %rd,%rs
-- Carga de memória para registrador:    ld      [%rb],%rs
-- Carga de registrador para memória:    ld      %rd,[%rb]
+- Carga de memória para registrador:    ld      %rd,[%rb]
+- Carga de registrador para memória:    ld      [%rb],%rs
 - Soma de dois valores:                 add     %rd,%rs
 - Subtração de dois valores:            sub     %rd,%rs
 - Desvio incondicional absoluto:        jpa     imm7

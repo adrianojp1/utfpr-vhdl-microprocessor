@@ -31,8 +31,13 @@ def get_const_bin(const: str) -> str:
     return format(const_int if const_int >= 0 else (1 << 8) + const_int, '08b')
 
 
-def to_instr(cod):
-    if cod.strip() == "":
+def to_instr(cod: str):
+    cod = cod.strip()
+
+    if cod[:2] == "//" or cod == "":
+        return None
+
+    if cod[:3] == "nop":
         return '0000_0000_00000000'
 
     rb = None
@@ -40,17 +45,16 @@ def to_instr(cod):
     rs = None
     const = None
 
+    print(cod)
     opcode, values = cod.split(' ')
 
     if ',' in values:
         first, second = values.split(',')
         if '[' in first:
-            print(first[1:-1])
             rb = get_reg_bin(first[1:-1])
             rs = get_reg_bin(second)
 
         elif '[' in second:
-            print(second[1:-1])
             rd = get_reg_bin(first)
             rb = get_reg_bin(second[1:-1])
 
@@ -81,13 +85,17 @@ def to_instr(cod):
     return instr
 
 
-intructions = [to_instr(cod) for cod in codigo]
+instructions = []
+for cod in codigo:
+    instruction = to_instr(cod)
+    if instruction is not None:
+        instructions.append(instruction)
 
 print('Binary:')
-for instr in intructions:
+for instr in instructions:
     print(instr)
 
 print('\nVHDL:')
-for i, instr in enumerate(intructions):
+for i, instr in enumerate(instructions):
     i = str(i) + ' ' if i < 10 else i
     print(f'{i} => B"{instr}",')

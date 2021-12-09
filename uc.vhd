@@ -11,7 +11,8 @@ entity uc is
         carry       :   in  std_logic;
         pc_o        :   in  unsigned(7 downto 0);
         pc_i        :   out unsigned(7 downto 0);
-        mem_read    :   out std_logic;
+        rom_read    :   out std_logic;
+        ram_write   :   out std_logic;
         pc_write    :   out std_logic;
         reg_write   :   out std_logic;
         carry_write :   out std_logic;
@@ -40,7 +41,7 @@ begin
         estado => estado_s
     );
     
-    mem_read    <=  '1' when estado_s="01" else
+    rom_read    <=  '1' when estado_s="01" else
                     '0';
 
     pc_write    <=  '1' when estado_s="11" else
@@ -50,8 +51,12 @@ begin
                             opcode=x"2" or
                             opcode=x"3" or
                             opcode=x"4" or
-                            opcode=x"5"
+                            opcode=x"5" or
+                            opcode=x"9"
                         ) else
+                    '0';
+
+    ram_write   <=  '1' when estado_s="10" and opcode=x"A" else 
                     '0';
 
     carry_write <=  '1' when estado_s="10" and (

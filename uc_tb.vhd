@@ -16,7 +16,8 @@ architecture a_uc_tb of uc_tb is
             carry       :   in  std_logic;
             pc_o        :   in  unsigned(7 downto 0);
             pc_i        :   out unsigned(7 downto 0);
-            mem_read    :   out std_logic;
+            rom_read    :   out std_logic;
+            ram_write   :   out std_logic;
             pc_write    :   out std_logic;
             reg_write   :   out std_logic;
             carry_write :   out std_logic;
@@ -47,7 +48,8 @@ architecture a_uc_tb of uc_tb is
     signal pc_o         :   unsigned(7 downto 0);
     signal pc_i         :   unsigned(7 downto 0);
 
-    signal mem_read     :   std_logic;
+    signal rom_read     :   std_logic;
+    signal ram_write    :   std_logic;
     signal pc_write     :   std_logic;
     signal reg_write    :   std_logic;
     signal carry_write  :   std_logic;
@@ -63,7 +65,8 @@ begin
         carry       => carry,
         pc_o        => pc_o,
         pc_i        => pc_i,
-        mem_read    => mem_read,
+        rom_read    => rom_read,
+        ram_write   => ram_write,
         pc_write    => pc_write,
         reg_write   => reg_write,
         ula_op      => ula_op,
@@ -154,6 +157,14 @@ begin
         opcode <= x"0";
         cte <= x"00";
         carry<='0';
+
+        wait for period_time*3;
+        opcode <= x"9";
+        cte <= x"00";
+
+        wait for period_time*3;
+        opcode <= x"A";
+        cte <= x"00";
         
         wait for period_time*30;
         rst<='1';
