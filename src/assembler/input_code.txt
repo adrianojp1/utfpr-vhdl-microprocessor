@@ -23,7 +23,7 @@
 
 // Início do loop de remoção de múltiplos
     add %r2,%r1    
-    ld [%r2],%0
+    ld [%r2],%r0
 // Se limite é maior que o múltiplo, sai do loop
     cmp %r7,%r2
     jrult -4
@@ -34,32 +34,15 @@
     jrult -11
 // Fim do loop do crivo 
 
+// Fim do Crivo - flag
+    ld %r3,1
 
-//Pega todos os primos e deixa um seguido do outro na RAM
-    ld %r1,0
-    ld %r2,1
-
-// Início do Loop
-// Carrega a posição %r2 para checar se é primo. Se for menor que 1, pula o salvamento)
-    ld %r3,[%r2]
-    cmp %r6,%r3
-    jrult 2
-
-// Salva o primo na última posição da lista e incrementa a posição
-    ld [%r1],%r3
-    add %r1,%r6
-
-//Incrementa a posição do %r2 pra encontrar o próximo primo
-    add %r2,%r6
-
-//Se o limite é maior que a posição, volta o loop
-    cmp %r7,%r2
-    jrult -8
-
-    ld [%r1],%r0
+// Le os endereços do 2 ao 32
+    ld %r1,2
+    ld %r2,[%r1]
     add %r1,%r6
     cmp %r7,%r1
     jrult -4
 
-//Acabou - Flag pra confirmar
+// Acabou - Flag pra confirmar
     ld %r4,1

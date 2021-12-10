@@ -8,14 +8,14 @@ end entity processador_tb;
 architecture a_processador_tb of processador_tb is
     component processador is
         port(
-            rst     :   in  std_logic;
-            clk     :   in  std_logic;
-            estado  :   out unsigned(1 downto 0);
-            pc_out  :   out unsigned(7 downto 0);
-            instr   :   out unsigned(15 downto 0); -- saída do registrador de instrução
-            reg1    :   out unsigned(15 downto 0); -- saída 1 do banco de registradores
-            reg2    :   out unsigned(15 downto 0); -- saída 2 do banco de registradores
-            ula_out :   out unsigned(15 downto 0)
+            rst         :   in  std_logic;
+            clk         :   in  std_logic;
+            estado      :   out unsigned(1 downto 0);
+            pc_out      :   out unsigned(7 downto 0);
+            instr       :   out unsigned(15 downto 0); -- saída do registrador de instrução
+            reg1        :   out unsigned(15 downto 0); -- saída 1 do banco de registradores
+            reg2        :   out unsigned(15 downto 0); -- saída 2 do banco de registradores
+            main_out    :   out unsigned(15 downto 0)
         );
     end component processador;
 
@@ -28,18 +28,18 @@ architecture a_processador_tb of processador_tb is
     signal      instr       : unsigned(15 downto 0);
     signal      reg1        : unsigned(15 downto 0);
     signal      reg2        : unsigned(15 downto 0);
-    signal      ula_out     : unsigned(15 downto 0);
+    signal      main_out    : unsigned(15 downto 0);
 
 begin
     uut: processador port map(
-        clk     => clk,
-        rst     => rst,
-        estado  => estado,
-        pc_out  => pc_out,
-        instr   => instr,
-        reg1    => reg1,
-        reg2    => reg2,
-        ula_out => ula_out
+        clk         => clk,
+        rst         => rst,
+        estado      => estado,
+        pc_out      => pc_out,
+        instr       => instr,
+        reg1        => reg1,
+        reg2        => reg2,
+        main_out    => main_out
     );
 
     clk_proc:   process
@@ -55,7 +55,7 @@ begin
 
     sim_time_proc:  process
     begin
-        wait for 2120 us;
+        wait for 270 us;
         finished<='1';
         wait;
     end process sim_time_proc;

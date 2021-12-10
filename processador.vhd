@@ -4,14 +4,14 @@ use ieee.numeric_std.all;
 
 entity processador is
     port(
-        rst     :   in  std_logic;
-        clk     :   in  std_logic;
-        estado  :   out unsigned(1 downto 0);
-        pc_out  :   out unsigned(7 downto 0);
-        instr   :   out unsigned(15 downto 0); -- saída do registrador de instrução
-        reg1    :   out unsigned(15 downto 0); -- saída 1 do banco de registradores
-        reg2    :   out unsigned(15 downto 0); -- saída 2 do banco de registradores
-        ula_out :   out unsigned(15 downto 0)
+        rst         :   in  std_logic;
+        clk         :   in  std_logic;
+        estado      :   out unsigned(1 downto 0);
+        pc_out      :   out unsigned(7 downto 0);
+        instr       :   out unsigned(15 downto 0); -- saída do registrador de instrução
+        reg1        :   out unsigned(15 downto 0); -- saída 1 do banco de registradores
+        reg2        :   out unsigned(15 downto 0); -- saída 2 do banco de registradores
+        main_out    :   out unsigned(15 downto 0)
     );
 end entity processador;
 
@@ -239,6 +239,6 @@ begin
     instr           <=  instr_s;
     reg1            <=  read_data_1;
     reg2            <=  read_data_2;
-    ula_out         <=  ram_read_data;
+    main_out        <=  ram_read_data;
 
 end architecture a_processador;
