@@ -45,7 +45,6 @@ def to_instr(cod: str):
     rs = None
     const = None
 
-    print(cod)
     opcode, values = cod.split(' ')
 
     if ',' in values:
@@ -86,9 +85,12 @@ def to_instr(cod: str):
 
 
 instructions = []
+n=0
 for cod in codigo:
     instruction = to_instr(cod)
     if instruction is not None:
+        print(n,"=>",cod.strip())
+        n+=1
         instructions.append(instruction)
 
 print('Binary:')
