@@ -1,5 +1,5 @@
 // Setando limites e constantes
-    ld %r7,32
+    ld %r7,33
     ld %r6,1
 
 // Preenchendo a memória do 1 ao 32 com o mesmo número
@@ -16,20 +16,20 @@
     ld %r5,1
     add %r1,%r6
 
-// Carrega o valor e compara se é primo. Se for igual a 0, pula o loop da remoção de múltiplos de primos
+// Carrega o valor e compara se é primo. Se for menor que 1, pula o loop da remoção de múltiplos de primos
     ld %r2,[%r1]
     cmp %r6,%r2
     jrult 4
 
-// Início do loop de remoção de múltimos 
+// Início do loop de remoção de múltiplos
     add %r2,%r1    
     ld [%r2],%0
-// Se o múltimo for maior que o limite, sai do loop
+// Se limite é maior que o múltiplo, sai do loop
     cmp %r7,%r2
     jrult -4
 // Fim do loop de remoção de primos 
 
-//se for maior que o limite, sai do loop
+// Se limite for maior que o número atual, volta do início
     cmp %r7,%r1
     jrult -11
 // Fim do loop do crivo 
@@ -39,20 +39,20 @@
     ld %r1,0
     ld %r2,1
 
-//Início do Loop
-//Carrega a posição %r2 para checar se é primo. Se for igual a 0, pula as 3 próximas intruções)
+// Início do Loop
+// Carrega a posição %r2 para checar se é primo. Se for menor que 1, pula o salvamento)
     ld %r3,[%r2]
     cmp %r6,%r3
     jrult 2
 
-//Carrega o primo na última posição da lista e incrementa a posição
+// Salva o primo na última posição da lista e incrementa a posição
     ld [%r1],%r3
     add %r1,%r6
 
 //Incrementa a posição do %r2 pra encontrar o próximo primo
     add %r2,%r6
 
-//Se o iterador for menor que o limite, volta o loop
+//Se o limite é maior que a posição, volta o loop
     cmp %r7,%r2
     jrult -8
 
@@ -61,5 +61,5 @@
     cmp %r7,%r1
     jrult -4
 
-//Acabou
+//Acabou - Flag pra confirmar
     ld %r4,1
